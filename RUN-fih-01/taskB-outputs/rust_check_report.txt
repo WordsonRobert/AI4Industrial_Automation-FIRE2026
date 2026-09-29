@@ -1,0 +1,796 @@
+Rust compile check summary
+  OK:      18/30
+  FAILED:  12/30
+  SKIPPED: 0/30
+
+======================================================================
+Task 1  (task_01.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Fill tank using Fill_Pump when Start_Button pressed and Low_Level_Sensor is not active
+
+Stop pump automatically when High_Level_Sensor activates
+
+Stop...
+======================================================================
+Task 2  (task_02.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    error[E0425]: cannot find value `tp_red_q` in this scope
+       --> /tmp/tmp8jrl2vug/check.rs:111:25
+        |
+    111 |             red_light = tp_red_q;
+        |                         ^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    111 -             red_light = tp_red_q;
+    111 +             red_light = tp_red;
+        |
+    
+    error[E0425]: cannot find value `tp_green_q` in this scope
+       --> /tmp/tmp8jrl2vug/check.rs:112:27
+        |
+    112 |             green_light = tp_green_q;
+        |                           ^^^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    112 -             green_light = tp_green_q;
+    112 +             green_light = tp_green;
+        |
+    
+    error[E0425]: cannot find value `tp_yellow_q` in this scope
+       --> /tmp/tmp8jrl2vug/check.rs:113:28
+        |
+    113 |             yellow_light = tp_yellow_q;
+        |                            ^^^^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    113 -             yellow_light = tp_yellow_q;
+    113 +             yellow_light = tp_yellow;
+        |
+    
+    warning: unused import: `Client`
+      --> /tmp/tmp8jrl2vug/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    error: aborting due to 3 previous errors; 1 warning emitted
+    
+    For more information about this error, try `rustc --explain E0425`.
+  task_text: Traffic light cycles automatically through Red (5s), Green (5s), and Yellow (2s), then repeats
+
+Red_Light: %QX1.0
+Yellow_Light: %QX1.1
+Green_Light: %Q...
+======================================================================
+Task 3  (task_03.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start motor with Start_Button, stop with Stop_Button
+
+Overload_Trip immediately stops the motor and latches a fault
+
+Fault can only be cleared with Re...
+======================================================================
+Task 4  (task_04.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start filling cycle with Start_Button
+
+Fill_Valve opens whenever a bottle is present and it is not yet full
+
+Bottle_Count increments each time a bottl...
+======================================================================
+Task 5  (task_05.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_high_acc >= 500' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Auger_Motor runs in Auto_Mode whenever Low_Level_Sensor is active and stops at High_Level_Sensor
+
+High_Alarm activates if the silo remains at High_Lev...
+======================================================================
+Task 6  (task_06.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start motor with Start_Button, stop with Stop_Button
+
+E_Stop immediately de-energizes the motor and latches a safety fault
+
+Fault can only be cleared...
+======================================================================
+Task 7  (task_07.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start/stop conveyor with Start_Button and Stop_Button
+
+Run at Low_Speed_Set when Speed_Select is off, and at High_Speed_Set when Speed_Select is on
+
+S...
+======================================================================
+Task 8  (task_08.rs)
+  compile_status: FAILED
+  compile_error:
+    error[E0601]: `main` function not found in crate `check`
+     --> /tmp/tmp75nwbzq8/check.rs:2:1825
+      |
+    2 | ..."Asn", "tg": "Batch_Complete", "v": {"t": "FALSE"}}]]]}]}
+      |                                                             ^ consider adding a `main` function to `/tmp/tmp75nwbzq8/check.rs`
+    
+    error: aborting due to 1 previous error
+    
+    For more information about this error, try `rustc --explain E0601`.
+  task_text: Start_Button opens Ingredient_A_Valve and Ingredient_B_Valve together
+
+Each valve closes automatically once its own level sensor reads full
+
+Once both...
+======================================================================
+Task 9  (task_09.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Open_Button drives the door open until Open_Limit is reached
+
+Close_Button drives the door closed until Closed_Limit is reached
+
+Obstacle_Sensor rever...
+======================================================================
+Task 10  (task_10.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_wash_acc >= 1000' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+    - 'ton_rinse_acc >= 750' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+    - 'ton_dry_acc >= 500' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Cycle starts automatically when Car_Present is detected and Start_Button is pressed
+
+Wash_Pump runs for 20 seconds, then Rinse_Valve runs for 15 secon...
+======================================================================
+Task 11  (task_11.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    error[E0425]: cannot find value `tp0_q` in this scope
+       --> /tmp/tmp_hvac6xr/check.rs:115:31
+        |
+    115 |             pusher_cylinder = tp0_q;
+        |                               ^^^^^ not found in this scope
+    
+    error[E0425]: cannot find value `ctu0_cv` in this scope
+       --> /tmp/tmp_hvac6xr/check.rs:116:33
+        |
+    116 |             box_count_display = ctu0_cv;
+        |                                 ^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    116 -             box_count_display = ctu0_cv;
+    116 +             box_count_display = ctu0_q;
+        |
+    
+    warning: unused import: `Client`
+      --> /tmp/tmp_hvac6xr/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    error: aborting due to 2 previous errors; 1 warning emitted
+    
+    For more information about this error, try `rustc --explain E0425`.
+  task_text: Box_Sensor counts boxes passing on the line
+
+Pusher_Cylinder pulses for 1 second every time 5 boxes have been counted, then the count resets
+
+Box_Coun...
+======================================================================
+Task 12  (task_12.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmp1s_k7mgc/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp1s_k7mgc/check.rs:110:29
+        |
+    110 |             scaled_weight = (weight_input / 10.0);
+        |                             ^                   ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    110 -             scaled_weight = (weight_input / 10.0);
+    110 +             scaled_weight = weight_input / 10.0;
+        |
+    
+    warning: unnecessary parentheses around `if` condition
+       --> /tmp/tmp1s_k7mgc/check.rs:113:23
+        |
+    113 |             } else if (((scaled_weight - (target_weight / 10.0)) < 5.0) || (((target_weight / 10.0) + 5.0) > scaled_weight)) {
+        |                       ^                                                                                                    ^
+        |
+    help: remove these parentheses
+        |
+    113 -             } else if (((scaled_weight - (target_weight / 10.0)) < 5.0) || (((target_weight / 10.0) + 5.0) > scaled_weight)) {
+    113 +             } else if ((scaled_weight - (target_weight / 10.0)) < 5.0) || (((target_weight / 10.0) + 5.0) > scaled_weight) {
+        |
+    
+    error[E0277]: cannot divide `i32` by `{float}`
+       --> /tmp/tmp1s_k7mgc/check.rs:110:43
+        |
+    110 |             scaled_weight = (weight_input / 10.0);
+        |                                           ^ no implementation for `i32 / {float}`
+        |
+        = help: the trait `Div<{float}>` is not implemented for `i32`
+    help: the following other types implement trait `Div<Rhs>`
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:488:8
+        |
+        = note: `i32` implements `Div`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:505:1
+        |
+        = note: in this macro invocation
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:22:8
+        |
+        = note: `&i32` implements `Div<i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:33:8
+        |
+        = note: `i32` implements `Div<&i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:44:8
+        |
+        = note: `&i32` implements `Div`
+        = note: this error originates in the macro `div_impl_integer` (in Nightly builds, run with -Z macro-backtrace for more info)
+    
+    error[E0277]: cannot divide `i32` by `{float}`
+       --> /tmp/tmp1s_k7mgc/check.rs:113:57
+        |
+    113 |             } else if (((scaled_weight - (target_weight / 10.0)) < 5.0) || (((target_weight / 10.0) + 5.0) > scaled_weight)) {
+        |                                                         ^ no implementation for `i32 / {float}`
+        |
+        = help: the trait `Div<{float}>` is not implemented for `i32`
+    help: the following other types implement trait `Div<Rhs>`
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:488:8
+        |
+        = note: `i32` implements `Div`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:505:1
+        |
+        = note: in this macro invocation
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:22:8
+        |
+        = note: `&i32` implements `Div<i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:33:8
+        |
+        = note: `i32` implements `Div<&i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:44:8
+        |
+        = note: `&i32` implements `Div`
+        = note: this error originates in the macro `div_impl_integer` (in Nightly builds, run with -Z macro-backtrace for more info)
+    
+    error[E0277]: cannot divide `i32` by `{float}`
+       --> /tmp/tmp1s_k7mgc/check.rs:113:93
+        |
+    113 |             } else if (((scaled_weight - (target_weight / 10.0)) < 5.0) || (((ta
+  task_text: Photo_Eye triggers a weight check of the part currently on the scale
+
+Reject_Pusher pulses for 500ms whenever Weight_Input is outside +/-5 of Target_W...
+======================================================================
+Task 13  (task_13.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Heater turns on when Temp_Sensor drops 5 degrees below Setpoint
+
+Heater turns off when Temp_Sensor rises 5 degrees above Setpoint
+
+Temp_Sensor: %IW50...
+======================================================================
+Task 14  (task_14.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Temp_Sensor reads process temperature in tenths of a degree
+
+Fan1 turns on above 30.0C and off below 28.0C
+
+Fan2 turns on above 35.0C and off below 33...
+======================================================================
+Task 15  (task_15.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Compressor_Motor starts when Pressure_Sensor falls below 80 psi
+
+Compressor_Motor stops when Pressure_Sensor rises above 120 psi
+
+Pressure_Sensor: %IW...
+======================================================================
+Task 16  (task_16.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmp8mxth1up/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp8mxth1up/check.rs:105:31
+        |
+    105 |             damper_position = ((((co2_sensor - 600) / 400.0) * 100.0) + 50.0);
+        |                               ^                                             ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    105 -             damper_position = ((((co2_sensor - 600) / 400.0) * 100.0) + 50.0);
+    105 +             damper_position = (((co2_sensor - 600) / 400.0) * 100.0) + 50.0;
+        |
+    
+    error[E0277]: cannot divide `i32` by `{float}`
+       --> /tmp/tmp8mxth1up/check.rs:105:53
+        |
+    105 |             damper_position = ((((co2_sensor - 600) / 400.0) * 100.0) + 50.0);
+        |                                                     ^ no implementation for `i32 / {float}`
+        |
+        = help: the trait `Div<{float}>` is not implemented for `i32`
+    help: the following other types implement trait `Div<Rhs>`
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:488:8
+        |
+        = note: `i32` implements `Div`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:505:1
+        |
+        = note: in this macro invocation
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:22:8
+        |
+        = note: `&i32` implements `Div<i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:33:8
+        |
+        = note: `i32` implements `Div<&i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:44:8
+        |
+        = note: `&i32` implements `Div`
+        = note: this error originates in the macro `div_impl_integer` (in Nightly builds, run with -Z macro-backtrace for more info)
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmp8mxth1up/check.rs:107:44
+        |
+    107 |             self.client.write_register(54, damper_position);
+        |                         --------------     ^^^^^^^^^^^^^^^ expected `i32`, found `f64`
+        |                         |
+        |                         arguments to this method are incorrect
+        |
+    note: method defined here
+       --> /tmp/tmp8mxth1up/check.rs:84:8
+        |
+     84 |     fn write_register(&mut self, address: u16, value: i32) {
+        |        ^^^^^^^^^^^^^^                          ----------
+    
+    error: aborting due to 2 previous errors; 2 warnings emitted
+    
+    Some errors have detailed explanations: E0277, E0308.
+    For more information about an error, try `rustc --explain E0277`.
+  task_text: Damper_Position is fully closed (0%) when CO2_Sensor is at or below 600ppm
+
+Damper_Position is fully open (100%) when CO2_Sensor is at or above 1000pp...
+======================================================================
+Task 17  (task_17.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_valve_acc >= 500' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Irrigation_Valve opens for a fixed 10 minutes whenever Soil_Moisture drops below 30% or Manual_Start is pressed
+
+Once triggered, the valve stays open...
+======================================================================
+Task 18  (task_18.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_reject_acc >= 25' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Part_Detect signals that a part has reached the vision check point
+
+Part_Good indicates the inspection result at the moment Part_Detect triggers
+
+Reje...
+======================================================================
+Task 19  (task_19.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Two-floor elevator moves up when Call_Floor2 is pressed and it is not already at floor 2
+
+Elevator moves down when Call_Floor1 is pressed and it is no...
+======================================================================
+Task 20  (task_20.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_grip_dwell_acc >= 25' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+    - 'ton_part_transfer_acc >= 50' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Cycle starts when Start_Cycle is pressed and Part_Present is detected
+
+Cylinder extends toward the part, gripper closes and dwells 500ms to secure it...
+======================================================================
+Task 21  (task_21.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmppq_62qmz/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmppq_62qmz/check.rs:110:28
+        |
+    110 |             conveyor_run = ((start_button || -stop_button) && light_curtain_clear);
+        |                            ^                                                     ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    110 -             conveyor_run = ((start_button || -stop_button) && light_curtain_clear);
+    110 +             conveyor_run = (start_button || -stop_button) && light_curtain_clear;
+        |
+    
+    error[E0600]: cannot apply unary operator `-` to type `bool`
+       --> /tmp/tmppq_62qmz/check.rs:110:46
+        |
+    110 |             conveyor_run = ((start_button || -stop_button) && light_curtain_clear);
+        |                                              ^^^^^^^^^^^^ cannot apply unary operator `-`
+    
+    error: aborting due to 1 previous error; 2 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0600`.
+  task_text: Start/stop conveyor with Start_Button and Stop_Button as usual
+
+Conveyor is not allowed to run unless Light_Curtain_Clear is true
+
+Safety_Fault_Lamp t...
+======================================================================
+Task 22  (task_22.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_jam_delay_acc >= 400' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Start/stop conveyor with Start_Button and Stop_Button
+
+Jam_Alarm latches if Entry_Photo_Eye stays blocked for more than 8 seconds while Exit_Photo_Eye...
+======================================================================
+Task 23  (task_23.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    error: expected expression, found keyword `mod`
+       --> /tmp/tmpghsmt6y7/check.rs:120:34
+        |
+    120 |             valve_b = (tp0_q && (mod(ctu0_cv, 4) == 0));
+        |                                  ^^^ expected expression
+    
+    error[E0425]: cannot find value `tp0_q` in this scope
+       --> /tmp/tmpghsmt6y7/check.rs:119:23
+        |
+    119 |             valve_a = tp0_q;
+        |                       ^^^^^ not found in this scope
+    
+    error[E0425]: cannot find value `tp0_q` in this scope
+       --> /tmp/tmpghsmt6y7/check.rs:120:24
+        |
+    120 |             valve_b = (tp0_q && (mod(ctu0_cv, 4) == 0));
+        |                        ^^^^^ not found in this scope
+    
+    warning: unused import: `Client`
+      --> /tmp/tmpghsmt6y7/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmpghsmt6y7/check.rs:120:23
+        |
+    120 |             valve_b = (tp0_q && (mod(ctu0_cv, 4) == 0));
+        |                       ^                               ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    120 -             valve_b = (tp0_q && (mod(ctu0_cv, 4) == 0));
+    120 +             valve_b = tp0_q && (mod(ctu0_cv, 4) == 0);
+        |
+    
+    error: aborting due to 3 previous errors; 2 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0425`.
+  task_text: Start/stop dosing with Start_Button and Stop_Button
+
+Valve_A stays open the whole time the system is running
+
+Valve_B opens for one pulse out of every...
+======================================================================
+Task 24  (task_24.rs)
+  compile_status: FAILED
+  compile_error:
+    error[E0601]: `main` function not found in crate `check`
+     --> /tmp/tmpsc8_lpo6/check.rs:2:2617
+      |
+    2 | ...n", "tg": "Lamp4", "v": {"t": "Id", "n": "TP_LAMP4.Q"}}]}
+      |                                                             ^ consider adding a `main` function to `/tmp/tmpsc8_lpo6/check.rs`
+    
+    error: aborting due to 1 previous error
+    
+    For more information about this error, try `rustc --explain E0601`.
+  task_text: Start/stop light chase with Start_Button and Stop_Button
+
+Lamp1 through Lamp4 light one at a time in sequence, each for 500ms, then repeat
+
+All lamps...
+======================================================================
+Task 25  (task_25.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmpvyek0spl/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmpvyek0spl/check.rs:107:32
+        |
+    107 |             scaled_ph_sensor = (p_h_sensor * 0.01);
+        |                                ^                 ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    107 -             scaled_ph_sensor = (p_h_sensor * 0.01);
+    107 +             scaled_ph_sensor = p_h_sensor * 0.01;
+        |
+    
+    warning: unnecessary parentheses around `if` condition
+       --> /tmp/tmpvyek0spl/check.rs:108:16
+        |
+    108 |             if (scaled_ph_sensor > 720.0) {
+        |                ^                        ^
+        |
+    help: remove these parentheses
+        |
+    108 -             if (scaled_ph_sensor > 720.0) {
+    108 +             if scaled_ph_sensor > 720.0 {
+        |
+    
+    warning: unnecessary parentheses around `if` condition
+       --> /tmp/tmpvyek0spl/check.rs:110:23
+        |
+    110 |             } else if (scaled_ph_sensor < 680.0) {
+        |                       ^                        ^
+        |
+    help: remove these parentheses
+        |
+    110 -             } else if (scaled_ph_sensor < 680.0) {
+    110 +             } else if scaled_ph_sensor < 680.0 {
+        |
+    
+    error[E0277]: cannot multiply `i32` by `{float}`
+       --> /tmp/tmpvyek0spl/check.rs:107:44
+        |
+    107 |             scaled_ph_sensor = (p_h_sensor * 0.01);
+        |                                            ^ no implementation for `i32 * {float}`
+        |
+        = help: the trait `Mul<{float}>` is not implemented for `i32`
+    help: the following other types implement trait `Mul<Rhs>`
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:344:8
+        |
+        = note: `i32` implements `Mul`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:359:0
+        |
+        = note: in this macro invocation
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:22:8
+        |
+        = note: `&i32` implements `Mul<i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:33:8
+        |
+        = note: `i32` implements `Mul<&i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:44:8
+        |
+        = note: `&i32` implements `Mul`
+        = note: this error originates in the macro `mul_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+    
+    error: aborting due to 1 previous error; 4 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0277`.
+  task_text: pH_Sensor reads process pH scaled by 100 (e.g. 700 = pH 7.00)
+
+Acid_Pump doses whenever pH_Sensor rises above 7.20 (720)
+
+Base_Pump doses whenever pH_...
+======================================================================
+Task 26  (task_26.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start the conveyor when Start_Button pressed and stop conveyor when Stop_Button pressed
+
+Start_Button: %IX100.0
+
+Stop_Button: %IX100.1
+
+Conveyor_Run:...
+======================================================================
+Task 27  (task_27.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmp4zopwy7u/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp4zopwy7u/check.rs:110:28
+        |
+    110 |             conveyor_run = (start_button && !stop_button);
+        |                            ^                            ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    110 -             conveyor_run = (start_button && !stop_button);
+    110 +             conveyor_run = start_button && !stop_button;
+        |
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmp4zopwy7u/check.rs:113:44
+        |
+    113 |             self.client.write_register(30, conveyor_run);
+        |                         --------------     ^^^^^^^^^^^^ expected `i32`, found `bool`
+        |                         |
+        |                         arguments to this method are incorrect
+        |
+    note: method defined here
+       --> /tmp/tmp4zopwy7u/check.rs:84:8
+        |
+     84 |     fn write_register(&mut self, address: u16, value: i32) {
+        |        ^^^^^^^^^^^^^^                          ----------
+    
+    error: aborting due to 1 previous error; 2 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0308`.
+  task_text: Set conveyor RPM using RPM_Set input before starting
+
+Start conveyor when Start_Button pressed
+
+Stop conveyor when Stop_Button pressed
+
+RPM_Set: %IW30...
+======================================================================
+Task 28  (task_28.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Set conveyor RPM using RPM_Set input
+
+Display RPM value on Digital_Display
+
+Start conveyor when Start_Button pressed
+
+Stop conveyor when Stop_Button p...
+======================================================================
+Task 29  (task_29.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmpw1xzu8qy/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmpw1xzu8qy/check.rs:123:44
+        |
+    123 |             self.client.write_register(31, digital_display);
+        |                         --------------     ^^^^^^^^^^^^^^^ expected `i32`, found `bool`
+        |                         |
+        |                         arguments to this method are incorrect
+        |
+    note: method defined here
+       --> /tmp/tmpw1xzu8qy/check.rs:84:8
+        |
+     84 |     fn write_register(&mut self, address: u16, value: i32) {
+        |        ^^^^^^^^^^^^^^                          ----------
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmpw1xzu8qy/check.rs:124:44
+        |
+    124 |             self.client.write_register(30, conveyor_run);
+        |                         --------------     ^^^^^^^^^^^^ expected `i32`, found `bool`
+        |                         |
+        |                         arguments to this method are incorrect
+        |
+    note: method defined here
+       --> /tmp/tmpw1xzu8qy/check.rs:84:8
+        |
+     84 |     fn write_register(&mut self, address: u16, value: i32) {
+        |        ^^^^^^^^^^^^^^                          ----------
+    
+    error: aborting due to 2 previous errors; 1 warning emitted
+    
+    For more information about this error, try `rustc --explain E0308`.
+  task_text: Set conveyor RPM using RPM_Set input at the beginning
+
+Display RPM value on Digital_Display
+
+Start conveyor when Start_Button pressed
+
+Vision_Sensor c...
+======================================================================
+Task 30  (task_30.rs)
+  compile_status: FAILED
+  compile_error:
+    error[E0601]: `main` function not found in crate `check`
+     --> /tmp/tmpidyhhyho/check.rs:2:2814
+      |
+    2 | ...green_box_counter"}, "r": {"t": "lit", "tx": "1"}}}]]]}]}
+      |                                                             ^ consider adding a `main` function to `/tmp/tmpidyhhyho/check.rs`
+    
+    error: aborting due to 1 previous error
+    
+    For more information about this error, try `rustc --explain E0601`.
+  task_text: Set conveyor RPM using RPM_Set input at the beginning
+
+Display RPM value on Digital_Display
+
+Start conveyor when Start_Button pressed
+
+Vision_Sensor c...

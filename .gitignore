@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Model weights, data and generated output folders (not tracked)
+lora_*adapter*/
+*.safetensors
+*.bin
+*.xlsx
+submission_output_*/
+
+# LaTeX build files
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.xmpdata
+paper/*.xmpi
+paper/*.pdf
+!paper/cc-by.pdf
+!paper/ceur-ws-logo.pdf
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/

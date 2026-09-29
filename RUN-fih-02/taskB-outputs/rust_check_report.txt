@@ -1,0 +1,1124 @@
+Rust compile check summary
+  OK:      18/30
+  FAILED:  12/30
+  SKIPPED: 0/30
+
+======================================================================
+Task 1  (task_01.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Fill tank using Fill_Pump when Start_Button pressed and Low_Level_Sensor is not active
+
+Stop pump automatically when High_Level_Sensor activates
+
+Stop...
+======================================================================
+Task 2  (task_02.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    error[E0425]: cannot find value `tp_red_q` in this scope
+       --> /tmp/tmpytyjaynp/check.rs:111:25
+        |
+    111 |             red_light = tp_red_q;
+        |                         ^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    111 -             red_light = tp_red_q;
+    111 +             red_light = tp_red;
+        |
+    
+    error[E0425]: cannot find value `tp_yellow_q` in this scope
+       --> /tmp/tmpytyjaynp/check.rs:112:28
+        |
+    112 |             yellow_light = tp_yellow_q;
+        |                            ^^^^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    112 -             yellow_light = tp_yellow_q;
+    112 +             yellow_light = tp_yellow;
+        |
+    
+    error[E0425]: cannot find value `tp_green_q` in this scope
+       --> /tmp/tmpytyjaynp/check.rs:113:27
+        |
+    113 |             green_light = tp_green_q;
+        |                           ^^^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    113 -             green_light = tp_green_q;
+    113 +             green_light = tp_green;
+        |
+    
+    warning: unused import: `Client`
+      --> /tmp/tmpytyjaynp/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    error: aborting due to 3 previous errors; 1 warning emitted
+    
+    For more information about this error, try `rustc --explain E0425`.
+  task_text: Traffic light cycles automatically through Red (5s), Green (5s), and Yellow (2s), then repeats
+
+Red_Light: %QX1.0
+Yellow_Light: %QX1.1
+Green_Light: %Q...
+======================================================================
+Task 3  (task_03.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton0_acc >= 250' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Start motor with Start_Button, stop with Stop_Button
+
+Overload_Trip immediately stops the motor and latches a fault
+
+Fault can only be cleared with Re...
+======================================================================
+Task 4  (task_04.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start filling cycle with Start_Button
+
+Fill_Valve opens whenever a bottle is present and it is not yet full
+
+Bottle_Count increments each time a bottl...
+======================================================================
+Task 5  (task_05.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_high_alarm_acc >= 500' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Auger_Motor runs in Auto_Mode whenever Low_Level_Sensor is active and stops at High_Level_Sensor
+
+High_Alarm activates if the silo remains at High_Lev...
+======================================================================
+Task 6  (task_06.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start motor with Start_Button, stop with Stop_Button
+
+E_Stop immediately de-energizes the motor and latches a safety fault
+
+Fault can only be cleared...
+======================================================================
+Task 7  (task_07.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start/stop conveyor with Start_Button and Stop_Button
+
+Run at Low_Speed_Set when Speed_Select is off, and at High_Speed_Set when Speed_Select is on
+
+S...
+======================================================================
+Task 8  (task_08.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_mixing_acc >= 1500' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmp8_75bzgp/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp8_75bzgp/check.rs:118:30
+        |
+    118 |             scaled_level_a = (level_a_full / 50.0);
+        |                              ^                   ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    118 -             scaled_level_a = (level_a_full / 50.0);
+    118 +             scaled_level_a = level_a_full / 50.0;
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp8_75bzgp/check.rs:119:30
+        |
+    119 |             scaled_level_b = (level_b_full / 50.0);
+        |                              ^                   ^
+        |
+    help: remove these parentheses
+        |
+    119 -             scaled_level_b = (level_b_full / 50.0);
+    119 +             scaled_level_b = level_b_full / 50.0;
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp8_75bzgp/check.rs:120:34
+        |
+    120 |             ingredient_a_valve = ((scaled_level_a >= 49.0) && !batch_complete);
+        |                                  ^                                           ^
+        |
+    help: remove these parentheses
+        |
+    120 -             ingredient_a_valve = ((scaled_level_a >= 49.0) && !batch_complete);
+    120 +             ingredient_a_valve = (scaled_level_a >= 49.0) && !batch_complete;
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp8_75bzgp/check.rs:121:34
+        |
+    121 |             ingredient_b_valve = ((scaled_level_b >= 49.0) && !batch_complete);
+        |                                  ^                                           ^
+        |
+    help: remove these parentheses
+        |
+    121 -             ingredient_b_valve = ((scaled_level_b >= 49.0) && !batch_complete);
+    121 +             ingredient_b_valve = (scaled_level_b >= 49.0) && !batch_complete;
+        |
+    
+    warning: unnecessary parentheses around `if` condition
+       --> /tmp/tmp8_75bzgp/check.rs:122:16
+        |
+    122 |             if ((start_button && !batch_complete) || reset_button) { ton_mixing_acc += 1; } else { ton_mixing_acc = 0; }
+        |                ^                                                 ^
+        |
+    help: remove these parentheses
+        |
+    122 -             if ((start_button && !batch_complete) || reset_button) { ton_mixing_acc += 1; } else { ton_mixing_acc = 0; }
+    122 +             if (start_button && !batch_complete) || reset_button { ton_mixing_acc += 1; } else { ton_mixing_acc = 0; }
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp8_75bzgp/check.rs:125:30
+        |
+    125 |             batch_complete = (mixer_motor || reset_button);
+        |                              ^                           ^
+        |
+    help: remove these parentheses
+        |
+    125 -             batch_complete = (mixer_motor || reset_button);
+    125 +             batch_complete = mixer_motor || reset_button;
+        |
+    
+    error[E0369]: cannot divide `bool` by `{float}`
+       --> /tmp/tmp8_75bzgp/check.rs:118:44
+        |
+    118 |             scaled_level_a = (level_a_full / 50.0);
+        |                               ------------ ^ ---- {float}
+        |                               |
+        |                               bool
+    
+    error[E0369]: cannot divide `bool` by `{float}`
+       --> /tmp/tmp8_75bzgp/check.rs:119:44
+        |
+    119 |             scaled_level_b = (level_b_full / 50.0);
+        |                               ------------ ^ ---- {float}
+        |                               |
+        |                               bool
+    
+    error: aborting due to 2 previous errors; 7 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0369`.
+  task_text: Start_Button opens Ingredient_A_Valve and Ingredient_B_Valve together
+
+Each valve closes automatically once its own level sensor reads full
+
+Once both...
+======================================================================
+Task 9  (task_09.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Open_Button drives the door open until Open_Limit is reached
+
+Close_Button drives the door closed until Closed_Limit is reached
+
+Obstacle_Sensor rever...
+======================================================================
+Task 10  (task_10.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_wash_acc >= 1000' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+    - 'ton_rinse_acc >= 750' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+    - 'ton_dry_acc >= 500' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Cycle starts automatically when Car_Present is detected and Start_Button is pressed
+
+Wash_Pump runs for 20 seconds, then Rinse_Valve runs for 15 secon...
+======================================================================
+Task 11  (task_11.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    error[E0425]: cannot find value `tp0_q` in this scope
+       --> /tmp/tmp295ldyoc/check.rs:115:31
+        |
+    115 |             pusher_cylinder = tp0_q;
+        |                               ^^^^^ not found in this scope
+    
+    error[E0425]: cannot find value `ctu0_cv` in this scope
+       --> /tmp/tmp295ldyoc/check.rs:116:33
+        |
+    116 |             box_count_display = ctu0_cv;
+        |                                 ^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    116 -             box_count_display = ctu0_cv;
+    116 +             box_count_display = ctu0_q;
+        |
+    
+    warning: unused import: `Client`
+      --> /tmp/tmp295ldyoc/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmp295ldyoc/check.rs:119:44
+        |
+    119 |             self.client.write_register(40, box_count_display);
+        |                         --------------     ^^^^^^^^^^^^^^^^^ expected `i32`, found `bool`
+        |                         |
+        |                         arguments to this method are incorrect
+        |
+    note: method defined here
+       --> /tmp/tmp295ldyoc/check.rs:84:8
+        |
+     84 |     fn write_register(&mut self, address: u16, value: i32) {
+        |        ^^^^^^^^^^^^^^                          ----------
+    
+    error: aborting due to 3 previous errors; 1 warning emitted
+    
+    Some errors have detailed explanations: E0308, E0425.
+    For more information about an error, try `rustc --explain E0308`.
+  task_text: Box_Sensor counts boxes passing on the line
+
+Pusher_Cylinder pulses for 1 second every time 5 boxes have been counted, then the count resets
+
+Box_Coun...
+======================================================================
+Task 12  (task_12.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton0_acc >= 25' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmpzj7o8dqk/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around `if` condition
+       --> /tmp/tmpzj7o8dqk/check.rs:111:16
+        |
+    111 |             if (abs((weight_input - target_weight)) <= 500) { ton0_acc += 1; } else { ton0_acc = 0; }
+        |                ^                                          ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    111 -             if (abs((weight_input - target_weight)) <= 500) { ton0_acc += 1; } else { ton0_acc = 0; }
+    111 +             if abs((weight_input - target_weight)) <= 500 { ton0_acc += 1; } else { ton0_acc = 0; }
+        |
+    
+    warning: unnecessary parentheses around function argument
+       --> /tmp/tmpzj7o8dqk/check.rs:111:21
+        |
+    111 |             if (abs((weight_input - target_weight)) <= 500) { ton0_acc += 1; } else { ton0_acc = 0; }
+        |                     ^                            ^
+        |
+    help: remove these parentheses
+        |
+    111 -             if (abs((weight_input - target_weight)) <= 500) { ton0_acc += 1; } else { ton0_acc = 0; }
+    111 +             if (abs(weight_input - target_weight) <= 500) { ton0_acc += 1; } else { ton0_acc = 0; }
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmpzj7o8dqk/check.rs:113:29
+        |
+    113 |             reject_pusher = (photo_eye && !ton0_q);
+        |                             ^                    ^
+        |
+    help: remove these parentheses
+        |
+    113 -             reject_pusher = (photo_eye && !ton0_q);
+    113 +             reject_pusher = photo_eye && !ton0_q;
+        |
+    
+    error[E0425]: cannot find function `abs` in this scope
+       --> /tmp/tmpzj7o8dqk/check.rs:111:17
+        |
+    111 |             if (abs((weight_input - target_weight)) <= 500) { ton0_acc += 1; } else { ton0_acc = 0; }
+        |                 ^^^ not found in this scope
+        |
+    help: use the `.` operator to call the method `abs` on `i32`
+        |
+    111 -             if (abs((weight_input - target_weight)) <= 500) { ton0_acc += 1; } else { ton0_acc = 0; }
+    111 +             if (((weight_input - target_weight)).abs() <= 500) { ton0_acc += 1; } else { ton0_acc = 0; }
+        |
+    
+    error: aborting due to 1 previous error; 4 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0425`.
+  task_text: Photo_Eye triggers a weight check of the part currently on the scale
+
+Reject_Pusher pulses for 500ms whenever Weight_Input is outside +/-5 of Target_W...
+======================================================================
+Task 13  (task_13.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_heater_on_acc >= 50' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+    - 'ton_heater_off_acc >= 50' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  compile_error:
+    error[E0425]: cannot find value `ton_heater_on` in this scope
+       --> /tmp/tmp2rvhiq9w/check.rs:112:13
+        |
+    112 |             ton_heater_on.et = (temp_sensor - last_temp);
+        |             ^^^^^^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    112 |             ton_heater_on_q.et = (temp_sensor - last_temp);
+        |                          ++
+    
+    error[E0425]: cannot find value `ton_heater_on_et` in this scope
+       --> /tmp/tmp2rvhiq9w/check.rs:114:17
+        |
+    114 |             if (ton_heater_on_et <= 5) { ton_heater_on_acc += 1; } else { ton_heater_on_acc = 0; }
+        |                 ^^^^^^^^^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    114 -             if (ton_heater_on_et <= 5) { ton_heater_on_acc += 1; } else { ton_heater_on_acc = 0; }
+    114 +             if (ton_heater_on_q <= 5) { ton_heater_on_acc += 1; } else { ton_heater_on_acc = 0; }
+        |
+    
+    error[E0425]: cannot find value `ton_heater_on_et` in this scope
+       --> /tmp/tmp2rvhiq9w/check.rs:116:17
+        |
+    116 |             if (ton_heater_on_et >= 5) { ton_heater_off_acc += 1; } else { ton_heater_off_acc = 0; }
+        |                 ^^^^^^^^^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    116 -             if (ton_heater_on_et >= 5) { ton_heater_off_acc += 1; } else { ton_heater_off_acc = 0; }
+    116 +             if (ton_heater_on_q >= 5) { ton_heater_off_acc += 1; } else { ton_heater_off_acc = 0; }
+        |
+    
+    warning: unused import: `Client`
+      --> /tmp/tmp2rvhiq9w/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp2rvhiq9w/check.rs:112:32
+        |
+    112 |             ton_heater_on.et = (temp_sensor - last_temp);
+        |                                ^                       ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    112 -             ton_heater_on.et = (temp_sensor - last_temp);
+    112 +             ton_heater_on.et = temp_sensor - last_temp;
+        |
+    
+    warning: unnecessary parentheses around `if` condition
+       --> /tmp/tmp2rvhiq9w/check.rs:114:16
+        |
+    114 |             if (ton_heater_on_et <= 5) { ton_heater_on_acc += 1; } else { ton_heater_on_acc = 0; }
+        |                ^                     ^
+        |
+    help: remove these parentheses
+        |
+    114 -             if (ton_heater_on_et <= 5) { ton_heater_on_acc += 1; } else { ton_heater_on_acc = 0; }
+    114 +             if ton_heater_on_et <= 5 { ton_heater_on_acc += 1; } else { ton_heater_on_acc = 0; }
+        |
+    
+    warning: unnecessary parentheses around `if` condition
+       --> /tmp/tmp2rvhiq9w/check.rs:116:16
+        |
+    116 |             if (ton_heater_on_et >= 5) { ton_heater_off_acc += 1; } else { ton_heater_off_acc = 0; }
+        |                ^                     ^
+        |
+    help: remove these parentheses
+        |
+    116 -             if (ton_heater_on_et >= 5) { ton_heater_off_acc += 1; } else { ton_heater_off_acc = 0; }
+    116 +             if ton_heater_on_et >= 5 { ton_heater_off_acc += 1; } else { ton_heater_off_acc = 0; }
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp2rvhiq9w/check.rs:123:22
+        |
+    123 |             heater = (heater && ((temp_sensor <= (setpoint + 5)) || (temp_sensor >= (setpoint - 5))));
+        |                      ^                                                                              ^
+        |
+    help: remove these parentheses
+        |
+    123 -             heater = (heater && ((temp_sensor <= (setpoint + 5)) || (temp_sensor >= (setpoint - 5))));
+    123 +             heater = heater && ((temp_sensor <= (setpoint + 5)) || (temp_sensor >= (setpoint - 5)));
+        |
+    
+    error: aborting due to 3 previous errors; 5 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0425`.
+  task_text: Heater turns on when Temp_Sensor drops 5 degrees below Setpoint
+
+Heater turns off when Temp_Sensor rises 5 degrees above Setpoint
+
+Temp_Sensor: %IW50...
+======================================================================
+Task 14  (task_14.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Temp_Sensor reads process temperature in tenths of a degree
+
+Fan1 turns on above 30.0C and off below 28.0C
+
+Fan2 turns on above 35.0C and off below 33...
+======================================================================
+Task 15  (task_15.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Compressor_Motor starts when Pressure_Sensor falls below 80 psi
+
+Compressor_Motor stops when Pressure_Sensor rises above 120 psi
+
+Pressure_Sensor: %IW...
+======================================================================
+Task 16  (task_16.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_open_acc >= 500' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+    - 'ton_close_acc >= 500' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Damper_Position is fully closed (0%) when CO2_Sensor is at or below 600ppm
+
+Damper_Position is fully open (100%) when CO2_Sensor is at or above 1000pp...
+======================================================================
+Task 17  (task_17.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_open_acc >= 500' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  compile_error:
+    error[E0425]: cannot find value `ton_open_et` in this scope
+       --> /tmp/tmpfgfps3ml/check.rs:111:48
+        |
+    111 |             irrigation_valve = (ton_open_q && !ton_open_et);
+        |                                                ^^^^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    111 -             irrigation_valve = (ton_open_q && !ton_open_et);
+    111 +             irrigation_valve = (ton_open_q && !ton_open_q);
+        |
+    
+    warning: unused import: `Client`
+      --> /tmp/tmpfgfps3ml/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around `if` condition
+       --> /tmp/tmpfgfps3ml/check.rs:109:16
+        |
+    109 |             if ((soil_moisture < 30) || manual_start) { ton_open_acc += 1; } else { ton_open_acc = 0; }
+        |                ^                                    ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    109 -             if ((soil_moisture < 30) || manual_start) { ton_open_acc += 1; } else { ton_open_acc = 0; }
+    109 +             if (soil_moisture < 30) || manual_start { ton_open_acc += 1; } else { ton_open_acc = 0; }
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmpfgfps3ml/check.rs:111:32
+        |
+    111 |             irrigation_valve = (ton_open_q && !ton_open_et);
+        |                                ^                          ^
+        |
+    help: remove these parentheses
+        |
+    111 -             irrigation_valve = (ton_open_q && !ton_open_et);
+    111 +             irrigation_valve = ton_open_q && !ton_open_et;
+        |
+    
+    error: aborting due to 1 previous error; 3 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0425`.
+  task_text: Irrigation_Valve opens for a fixed 10 minutes whenever Soil_Moisture drops below 30% or Manual_Start is pressed
+
+Once triggered, the valve stays open...
+======================================================================
+Task 18  (task_18.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton0_acc >= 100' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Part_Detect signals that a part has reached the vision check point
+
+Part_Good indicates the inspection result at the moment Part_Detect triggers
+
+Reje...
+======================================================================
+Task 19  (task_19.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Two-floor elevator moves up when Call_Floor2 is pressed and it is not already at floor 2
+
+Elevator moves down when Call_Floor1 is pressed and it is no...
+======================================================================
+Task 20  (task_20.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'wait_ms_acc >= 50' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+    - 'wait_ms_acc >= 50' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  compile_error:
+    error: prefix `T` is unknown
+       --> /tmp/tmp7p0ec4ba/check.rs:117:20
+        |
+    117 |                 if T#500ms { wait_ms_acc += 1; } else { wait_ms_acc = 0; }
+        |                    ^ unknown prefix
+        |
+        = note: prefixed identifiers and literals are reserved since Rust 2021
+    help: consider inserting whitespace here
+        |
+    117 |                 if T #500ms { wait_ms_acc += 1; } else { wait_ms_acc = 0; }
+        |                     +
+    
+    error: expected one of `!` or `[`, found `500ms`
+       --> /tmp/tmp7p0ec4ba/check.rs:117:22
+        |
+    117 |                 if T#500ms { wait_ms_acc += 1; } else { wait_ms_acc = 0; }
+        |                      ^^^^^ expected one of `!` or `[`
+    
+    warning: unused import: `Client`
+      --> /tmp/tmp7p0ec4ba/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp7p0ec4ba/check.rs:113:27
+        |
+    113 |             cycle_start = (start_cycle && part_present);
+        |                           ^                           ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    113 -             cycle_start = (start_cycle && part_present);
+    113 +             cycle_start = start_cycle && part_present;
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp7p0ec4ba/check.rs:114:26
+        |
+    114 |             grip_close = (cycle_start && gripper_extended);
+        |                          ^                               ^
+        |
+    help: remove these parentheses
+        |
+    114 -             grip_close = (cycle_start && gripper_extended);
+    114 +             grip_close = cycle_start && gripper_extended;
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp7p0ec4ba/check.rs:123:32
+        |
+    123 |             gripper_extended = (cycle_start || grip_close);
+        |                                ^                         ^
+        |
+    help: remove these parentheses
+        |
+    123 -             gripper_extended = (cycle_start || grip_close);
+    123 +             gripper_extended = cycle_start || grip_close;
+        |
+    
+    error: aborting due to 2 previous errors; 4 warnings emitted
+  task_text: Cycle starts when Start_Cycle is pressed and Part_Present is detected
+
+Cylinder extends toward the part, gripper closes and dwells 500ms to secure it...
+======================================================================
+Task 21  (task_21.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start/stop conveyor with Start_Button and Stop_Button as usual
+
+Conveyor is not allowed to run unless Light_Curtain_Clear is true
+
+Safety_Fault_Lamp t...
+======================================================================
+Task 22  (task_22.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_jam_acc >= 400' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Start/stop conveyor with Start_Button and Stop_Button
+
+Jam_Alarm latches if Entry_Photo_Eye stays blocked for more than 8 seconds while Exit_Photo_Eye...
+======================================================================
+Task 23  (task_23.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton0_acc >= 50' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  compile_error:
+    error[E0425]: cannot find value `tp0_q` in this scope
+       --> /tmp/tmp0xc2c99w/check.rs:121:23
+        |
+    121 |             valve_a = tp0_q;
+        |                       ^^^^^ not found in this scope
+    
+    error[E0425]: cannot find value `tp0_q` in this scope
+       --> /tmp/tmp0xc2c99w/check.rs:122:16
+        |
+    122 |             if tp0_q { ton0_acc += 1; } else { ton0_acc = 0; }
+        |                ^^^^^ not found in this scope
+    
+    error[E0425]: cannot find value `tp0_q` in this scope
+       --> /tmp/tmp0xc2c99w/check.rs:124:24
+        |
+    124 |             valve_b = (tp0_q && ((((ctu0_cv * 1) + 1) % 4) == 1));
+        |                        ^^^^^ not found in this scope
+    
+    error[E0425]: cannot find value `ctu0_cv` in this scope
+       --> /tmp/tmp0xc2c99w/check.rs:124:37
+        |
+    124 |             valve_b = (tp0_q && ((((ctu0_cv * 1) + 1) % 4) == 1));
+        |                                     ^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    124 -             valve_b = (tp0_q && ((((ctu0_cv * 1) + 1) % 4) == 1));
+    124 +             valve_b = (tp0_q && ((((ctu0_q * 1) + 1) % 4) == 1));
+        |
+    
+    warning: unused import: `Client`
+      --> /tmp/tmp0xc2c99w/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp0xc2c99w/check.rs:124:23
+        |
+    124 |             valve_b = (tp0_q && ((((ctu0_cv * 1) + 1) % 4) == 1));
+        |                       ^                                         ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    124 -             valve_b = (tp0_q && ((((ctu0_cv * 1) + 1) % 4) == 1));
+    124 +             valve_b = tp0_q && ((((ctu0_cv * 1) + 1) % 4) == 1);
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp0xc2c99w/check.rs:125:23
+        |
+    125 |             valve_b = (valve_b || ton0_q);
+        |                       ^                 ^
+        |
+    help: remove these parentheses
+        |
+    125 -             valve_b = (valve_b || ton0_q);
+    125 +             valve_b = valve_b || ton0_q;
+        |
+    
+    error: aborting due to 4 previous errors; 3 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0425`.
+  task_text: Start/stop dosing with Start_Button and Stop_Button
+
+Valve_A stays open the whole time the system is running
+
+Valve_B opens for one pulse out of every...
+======================================================================
+Task 24  (task_24.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    error[E0425]: cannot find value `tp0_q` in this scope
+       --> /tmp/tmpt2maag2u/check.rs:120:25
+        |
+    120 |                 lamp1 = tp0_q;
+        |                         ^^^^^ not found in this scope
+    
+    warning: unused import: `Client`
+      --> /tmp/tmpt2maag2u/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    error: aborting due to 1 previous error; 1 warning emitted
+    
+    For more information about this error, try `rustc --explain E0425`.
+  task_text: Start/stop light chase with Start_Button and Stop_Button
+
+Lamp1 through Lamp4 light one at a time in sequence, each for 500ms, then repeat
+
+All lamps...
+======================================================================
+Task 25  (task_25.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_acid_acc >= 250' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+    - 'ton_base_acc >= 250' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: pH_Sensor reads process pH scaled by 100 (e.g. 700 = pH 7.00)
+
+Acid_Pump doses whenever pH_Sensor rises above 7.20 (720)
+
+Base_Pump doses whenever pH_...
+======================================================================
+Task 26  (task_26.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  task_text: Start the conveyor when Start_Button pressed and stop conveyor when Stop_Button pressed
+
+Start_Button: %IX100.0
+
+Stop_Button: %IX100.1
+
+Conveyor_Run:...
+======================================================================
+Task 27  (task_27.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    error[E0425]: cannot find value `co_nveyor_run` in this scope
+       --> /tmp/tmpb85a4cd1/check.rs:109:23
+        |
+    109 |             rpm_set = co_nveyor_run;
+        |                       ^^^^^^^^^^^^^
+        |
+    help: a local variable with a similar name exists
+        |
+    109 -             rpm_set = co_nveyor_run;
+    109 +             rpm_set = conveyor_run;
+        |
+    
+    warning: unused import: `Client`
+      --> /tmp/tmpb85a4cd1/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmpb85a4cd1/check.rs:110:28
+        |
+    110 |             conveyor_run = (start_button && (rpm_set || !stop_button));
+        |                            ^                                         ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    110 -             conveyor_run = (start_button && (rpm_set || !stop_button));
+    110 +             conveyor_run = start_button && (rpm_set || !stop_button);
+        |
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmpb85a4cd1/check.rs:110:46
+        |
+    110 |             conveyor_run = (start_button && (rpm_set || !stop_button));
+        |                                              ^^^^^^^ expected `bool`, found `i32`
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmpb85a4cd1/check.rs:113:44
+        |
+    113 |             self.client.write_register(30, conveyor_run);
+        |                         --------------     ^^^^^^^^^^^^ expected `i32`, found `bool`
+        |                         |
+        |                         arguments to this method are incorrect
+        |
+    note: method defined here
+       --> /tmp/tmpb85a4cd1/check.rs:84:8
+        |
+     84 |     fn write_register(&mut self, address: u16, value: i32) {
+        |        ^^^^^^^^^^^^^^                          ----------
+    
+    error: aborting due to 3 previous errors; 2 warnings emitted
+    
+    Some errors have detailed explanations: E0308, E0425.
+    For more information about an error, try `rustc --explain E0308`.
+  task_text: Set conveyor RPM using RPM_Set input before starting
+
+Start conveyor when Start_Button pressed
+
+Stop conveyor when Stop_Button pressed
+
+RPM_Set: %IW30...
+======================================================================
+Task 28  (task_28.rs)
+  compile_status: OK
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton_conveyor_acc >= 100' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  task_text: Set conveyor RPM using RPM_Set input
+
+Display RPM value on Digital_Display
+
+Start conveyor when Start_Button pressed
+
+Stop conveyor when Stop_Button p...
+======================================================================
+Task 29  (task_29.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  scan_count_flags (not auto-fixed, needs manual review):
+    - 'ton0_acc >= 250' looks like a hardcoded scan-count timer threshold (implicit 20ms/cycle assumption) rather than wall-clock Duration/Instant comparison
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmp1g4kahx1/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp1g4kahx1/check.rs:115:23
+        |
+    115 |             rpm_set = (rpm_set + 1);
+        |                       ^           ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    115 -             rpm_set = (rpm_set + 1);
+    115 +             rpm_set = rpm_set + 1;
+        |
+    
+    warning: unnecessary parentheses around `if` condition
+       --> /tmp/tmp1g4kahx1/check.rs:116:16
+        |
+    116 |             if ((start_button || start_light) && !ton0_q) { ton0_acc += 1; } else { ton0_acc = 0; }
+        |                ^                                        ^
+        |
+    help: remove these parentheses
+        |
+    116 -             if ((start_button || start_light) && !ton0_q) { ton0_acc += 1; } else { ton0_acc = 0; }
+    116 +             if (start_button || start_light) && !ton0_q { ton0_acc += 1; } else { ton0_acc = 0; }
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmp1g4kahx1/check.rs:124:23
+        |
+    124 |             rpm_set = (box_counter / 10);
+        |                       ^                ^
+        |
+    help: remove these parentheses
+        |
+    124 -             rpm_set = (box_counter / 10);
+    124 +             rpm_set = box_counter / 10;
+        |
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmp1g4kahx1/check.rs:127:44
+        |
+    127 |             self.client.write_register(30, conveyor_run);
+        |                         --------------     ^^^^^^^^^^^^ expected `i32`, found `bool`
+        |                         |
+        |                         arguments to this method are incorrect
+        |
+    note: method defined here
+       --> /tmp/tmp1g4kahx1/check.rs:84:8
+        |
+     84 |     fn write_register(&mut self, address: u16, value: i32) {
+        |        ^^^^^^^^^^^^^^                          ----------
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmp1g4kahx1/check.rs:128:44
+        |
+    128 |             self.client.write_register(31, digital_display);
+        |                         --------------     ^^^^^^^^^^^^^^^ expected `i32`, found `bool`
+        |                         |
+        |                         arguments to this method are incorrect
+        |
+    note: method defined here
+       --> /tmp/tmp1g4kahx1/check.rs:84:8
+        |
+     84 |     fn write_register(&mut self, address: u16, value: i32) {
+        |        ^^^^^^^^^^^^^^                          ----------
+    
+    error: aborting due to 2 previous errors; 4 warnings emitted
+    
+    For more information about this error, try `rustc --explain E0308`.
+  task_text: Set conveyor RPM using RPM_Set input at the beginning
+
+Display RPM value on Digital_Display
+
+Start conveyor when Start_Button pressed
+
+Vision_Sensor c...
+======================================================================
+Task 30  (task_30.rs)
+  compile_status: FAILED
+  patches_applied:
+    - injected self-contained Modbus stub module (replaces 'use modbus::...')
+  compile_error:
+    warning: unused import: `Client`
+      --> /tmp/tmpfxsqeuvr/check.rs:51:14
+       |
+    51 | use modbus::{Client, Coil};
+       |              ^^^^^^
+       |
+       = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmpfxsqeuvr/check.rs:123:28
+        |
+    123 |             conveyor_run = (!stop_button && start_button);
+        |                            ^                            ^
+        |
+        = note: `#[warn(unused_parens)]` (part of `#[warn(unused)]`) on by default
+    help: remove these parentheses
+        |
+    123 -             conveyor_run = (!stop_button && start_button);
+    123 +             conveyor_run = !stop_button && start_button;
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmpfxsqeuvr/check.rs:125:27
+        |
+    125 |             start_light = (start_button || conveyor_run);
+        |                           ^                            ^
+        |
+    help: remove these parentheses
+        |
+    125 -             start_light = (start_button || conveyor_run);
+    125 +             start_light = start_button || conveyor_run;
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmpfxsqeuvr/check.rs:126:27
+        |
+    126 |             total_boxes = (vision_sensor_blue + (vision_sensor_green + vision_sensor_gray));
+        |                           ^                                                               ^
+        |
+    help: remove these parentheses
+        |
+    126 -             total_boxes = (vision_sensor_blue + (vision_sensor_green + vision_sensor_gray));
+    126 +             total_boxes = vision_sensor_blue + (vision_sensor_green + vision_sensor_gray);
+        |
+    
+    warning: unnecessary parentheses around assigned value
+       --> /tmp/tmpfxsqeuvr/check.rs:131:23
+        |
+    131 |             rpm_set = (total_boxes / 100.0);
+        |                       ^                   ^
+        |
+    help: remove these parentheses
+        |
+    131 -             rpm_set = (total_boxes / 100.0);
+    131 +             rpm_set = total_boxes / 100.0;
+        |
+    
+    error[E0277]: cannot divide `i32` by `{float}`
+       --> /tmp/tmpfxsqeuvr/check.rs:131:36
+        |
+    131 |             rpm_set = (total_boxes / 100.0);
+        |                                    ^ no implementation for `i32 / {float}`
+        |
+        = help: the trait `Div<{float}>` is not implemented for `i32`
+    help: the following other types implement trait `Div<Rhs>`
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:488:8
+        |
+        = note: `i32` implements `Div`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/ops/arith.rs:505:1
+        |
+        = note: in this macro invocation
+       --> /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:22:8
+        |
+        = note: `&i32` implements `Div<i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:33:8
+        |
+        = note: `i32` implements `Div<&i32>`
+       ::: /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library/core/src/internal_macros.rs:44:8
+        |
+        = note: `&i32` implements `Div`
+        = note: this error originates in the macro `div_impl_integer` (in Nightly builds, run with -Z macro-backtrace for more info)
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmpfxsqeuvr/check.rs:133:44
+        |
+    133 |             self.client.write_register(30, conveyor_run);
+        |                         --------------     ^^^^^^^^^^^^ expected `i32`, found `bool`
+        |                         |
+        |                         arguments to this method are incorrect
+        |
+    note: method defined here
+       --> /tmp/tmpfxsqeuvr/check.rs:84:8
+        |
+     84 |     fn write_register(&mut self, address: u16, value: i32) {
+        |        ^^^^^^^^^^^^^^                          ----------
+    
+    error[E0308]: mismatched types
+       --> /tmp/tmpfxsqeuvr/check.rs:134:44
+        |
+    134 |             self.client.write_register(31, digital_display);
+        |                         --------------     ^^^^^^^^^^^^^^^ expected `i32`, found `bool`
+        |                         |
+        |  
+  task_text: Set conveyor RPM using RPM_Set input at the beginning
+
+Display RPM value on Digital_Display
+
+Start conveyor when Start_Button pressed
+
+Vision_Sensor c...
