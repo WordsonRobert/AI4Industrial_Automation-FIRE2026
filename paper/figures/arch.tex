@@ -1,0 +1,112 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{libertinus}
+\usepackage[scaled=0.86]{inconsolata}
+\usepackage{fontawesome5}
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds,calc,shapes.geometric}
+
+% ---- palette (prints fine in grayscale: distinct lightness levels) ----
+\definecolor{ink}{HTML}{1F2933}
+\definecolor{muted}{HTML}{5B6770}
+\definecolor{llmF}{HTML}{E8EEFB}\definecolor{llmD}{HTML}{3D5A98}
+\definecolor{detF}{HTML}{F1F3F5}\definecolor{detD}{HTML}{55606B}
+\definecolor{chkF}{HTML}{FDF1E3}\definecolor{chkD}{HTML}{B7651B}
+\definecolor{outF}{HTML}{E7F4EC}\definecolor{outD}{HTML}{2E7D4F}
+\definecolor{fbk}{HTML}{B23A3A}
+\definecolor{panel}{HTML}{FAFBFC}
+
+\tikzset{
+  >={Stealth[length=2.4mm,width=1.8mm]},
+  every node/.style={font=\small\color{ink}},
+  box/.style={draw, rounded corners=3pt, line width=0.7pt, align=center,
+              minimum height=13.5mm, inner sep=3.5pt, text width=#1},
+  box/.default=26mm,
+  llm/.style={box=#1, fill=llmF, draw=llmD},
+  det/.style={box=#1, fill=detF, draw=detD},
+  chk/.style={box=#1, fill=chkF, draw=chkD},
+  out/.style={box=#1, fill=outF, draw=outD},
+  data/.style={box=#1, fill=white, draw=detD, dashed},
+  flow/.style={->, line width=0.8pt, draw=ink},
+  lbl/.style={font=\scriptsize\itshape\color{muted}, align=center},
+  ttl/.style={font=\footnotesize\bfseries\color{ink}},
+  sub/.style={font=\scriptsize\color{muted}},
+  code/.style={font=\scriptsize\ttfamily\color{ink}},
+  panelbox/.style={draw=detD!45, rounded corners=6pt, fill=panel, line width=0.6pt, inner sep=9pt},
+  stage/.style={font=\scriptsize\bfseries\color{white}, fill=#1, rounded corners=2pt, inner sep=2.5pt},
+}
+
+\newcommand{\smol}[1]{{\scriptsize\color{muted}#1}}
+\newcommand{\cod}[1]{{\scriptsize\ttfamily\color{ink}#1}}
+\begin{document}
+\begin{tikzpicture}[x=1mm,y=1mm]
+\pgfdeclarelayer{back}\pgfsetlayers{back,background,main}
+% five columns, centres 0,34,68,102,136 ; box width 28mm
+% ============================ (a) TRAINING ============================
+\node[data=31mm, minimum height=9.5mm] (fire) at (0,5.5)  {{\faDatabase}\ \textbf{FIRE train set}\\[-2pt]\smol{349 official pairs}};
+\node[data=31mm, minimum height=9.5mm] (gh)   at (0,-5.5) {{\faGithub}\ \textbf{GitHub PLC}\\[-2pt]\smol{permissive open source}};
+\node[det=31mm]  (clean) at (35.5,0)  {\textbf{Filter \& convert}\\[-1pt]\smol{licence filter $\cdot$ AST parse\\DeepSeek-V3 NL $\cdot$ augment}};
+\node[det=31mm]  (pairs) at (71,0)  {\textbf{744 NL--AST pairs}\\[-1pt]\smol{396 pass quality checks\\356 train / 40 held-out}};
+\node[llm=31mm]  (lora)  at (106.5,0) {\textbf{LoRA fine-tuning}\\[-1pt]\smol{Qwen2.5-Coder 1.5B / 7B\\$r{=}16,\ \alpha{=}32$}};
+\node[llm=31mm]  (adapt) at (142,0) {\textbf{Trained adapter}\\[-1pt]\smol{NL $\rightarrow$ compact AST}};
+\draw[line width=0.8pt, draw=ink] (fire.east) -- (17.8,5.5) -- (17.8,-5.5) -- (gh.east);
+\draw[flow] (17.8,0) -- (clean.west);
+\draw[flow] (clean) -- (pairs);
+\draw[flow] (pairs) -- (lora);
+\draw[flow] (lora) -- (adapt);
+
+% ============================ (b) INFERENCE ===========================
+\node[data=31mm] (nl)    at (0,-30)   {{\faFile*}\ \textbf{NL task spec}\\[-1pt]\smol{text + I/O address list}};
+\node[llm=31mm]  (gen)   at (35.5,-30)  {{\faBrain}\ \textbf{Fine-tuned LLM}\\[-1pt]\smol{greedy decoding}};
+\node[det=31mm]  (ast)   at (71,-30)  {\textbf{Compact JSON AST}\\[0pt]\cod{\{"t":"Asn","tg":"Pump",\\"v":\{"t":"Id",\ldots\}\}}};
+\node[det=31mm]  (parse) at (106.5,-30) {\textbf{Parse layer}\\[-1pt]\smol{strip fences $\cdot$ json\_repair\\$\rightarrow$ typed AST}};
+\node[chk=31mm]  (lint)  at (142,-30) {{\faSearch}\ \textbf{Static linter}\\[-1pt]\smol{8 rules: missing/unused\\I/O, input writes, \ldots}};
+\node[chk=31mm]  (sim)   at (142,-50) {{\faSync}\ \textbf{Scan simulator}\\[-1pt]\smol{200 scan cycles; flags\\outputs that never change}};
+\node[diamond, aspect=2, draw=chkD, fill=white, line width=0.8pt, inner sep=1pt, font=\footnotesize\bfseries] (ok) at (35.5,-50) {Clean?};
+
+\node[det=31mm]  (stp) at (35.5,-70)  {\textbf{ST printer}\\[-1pt]\smol{deterministic}};
+\node[out=31mm]  (st)  at (0,-70)   {{\faMicrochip}\ \textbf{Task A}\\[-1pt]\smol{IEC 61131-3 ST}};
+\node[det=31mm]  (rsp) at (71,-70)  {\textbf{Rust printer}\\[-1pt]\smol{Modbus scan loop}};
+\node[det=31mm]  (fix) at (106.5,-70) {\textbf{Rust post-pass}\\[-1pt]\smol{Modbus stub + \texttt{rustc}}};
+\node[out=31mm]  (rs)  at (142,-70) {{\faCog}\ \textbf{Task B}\\[-1pt]\smol{Rust program}};
+
+\draw[flow] (nl) -- (gen);
+\draw[flow] (gen) -- (ast);
+\draw[flow] (ast) -- (parse);
+\draw[flow] (parse) -- (lint);
+\draw[flow] (lint) -- (sim);
+\draw[flow] (sim) -- node[above, lbl]{issues or clean} (ok);
+\draw[flow, draw=fbk, dashed, line width=0.9pt] (ok.north) -- node[left, lbl, text=fbk, align=right]{no: errors fed back\\($\le$\,3 attempts)} (gen.south);
+\draw[flow] (ok.south) -- node[left, lbl]{yes} (stp.north);
+\draw[flow] ($(ok.south)!0.5!(stp.north)$) -| (rsp.north);
+\draw[flow] (stp) -- (st);
+\draw[flow] (rsp) -- (fix);
+\draw[flow] (fix) -- (rs);
+\node[lbl, anchor=south] at ($(ok.south)!0.5!(stp.north)+(24,0.3)$) {same verified AST};
+
+% trained adapter feeds the LLM
+\draw[flow, draw=llmD, line width=0.9pt] (adapt.south) -- (142,-15) -| (gen.north);
+
+% verification group
+\begin{scope}[on background layer]
+  \node[draw=chkD!70, dashed, rounded corners=5pt, fill=chkF!50, inner sep=3pt, fit=(lint)(sim)] (V) {};
+\end{scope}
+\node[font=\scriptsize\bfseries\color{chkD}, anchor=north east] at ($(V.south east)+(0,-0.4)$) {AST verification};
+
+% panels
+\coordinate (L1) at (-18,0); \coordinate (R1) at (160,0); \coordinate (L2) at (-18,-40); \coordinate (R2) at (160,-40);
+\begin{pgfonlayer}{back}
+  \node[panelbox, fit=(fire)(gh)(clean)(pairs)(lora)(adapt)(L1)(R1)] (P1) {};
+  \node[panelbox, fit=(nl)(gen)(ast)(parse)(lint)(sim)(ok)(stp)(st)(rsp)(fix)(rs)(V)(L2)(R2), inner ysep=8pt] (P2) {};
+\end{pgfonlayer}
+\node[stage=llmD, anchor=south west] at ($(P1.north west)+(2,0.8)$) {(a) TRAINING};
+\node[stage=outD, anchor=south west] at ($(P2.north west)+(2,0.8)$) {(b) INFERENCE};
+
+% legend
+\node[anchor=north, inner sep=0] at ($(P2.south)+(0,-3)$) {%
+  \tikz[baseline=0pt]\draw[fill=llmF, draw=llmD, line width=0.6pt, rounded corners=1pt] (0,-0.25ex) rectangle (3.6mm,1.55ex);\ \scriptsize learned\qquad
+  \tikz[baseline=0pt]\draw[fill=detF, draw=detD, line width=0.6pt, rounded corners=1pt] (0,-0.25ex) rectangle (3.6mm,1.55ex);\ \scriptsize deterministic code\qquad
+  \tikz[baseline=0pt]\draw[fill=chkF, draw=chkD, line width=0.6pt, rounded corners=1pt] (0,-0.25ex) rectangle (3.6mm,1.55ex);\ \scriptsize verification\qquad
+  \tikz[baseline=0pt]\draw[fill=outF, draw=outD, line width=0.6pt, rounded corners=1pt] (0,-0.25ex) rectangle (3.6mm,1.55ex);\ \scriptsize final output\qquad
+  \tikz[baseline=0pt]\draw[->, draw=fbk, dashed, line width=0.9pt] (0,0.65ex) -- (6mm,0.65ex);\ \scriptsize self-repair feedback};
+\end{tikzpicture}
+\end{document}

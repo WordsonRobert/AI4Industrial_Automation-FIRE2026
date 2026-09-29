@@ -1,0 +1,284 @@
+% References for the fih NL2PLC working note (FIRE 2026).
+% Every DOI was checked against Crossref/DataCite and every arXiv id against the
+% arXiv API (titles and author lists) on 29 Sep 2026. Long author lists are
+% truncated with "others"; venue names are abbreviated to save space.
+% One link per entry: the DOI where the venue issues one, otherwise the arXiv id.
+
+% ---------------------------------------------------------------- task, standards, PLC background
+@misc{fire2026nl2plc,
+  author = {Biswajit Chatterjee and others},
+  title  = {{FIRE} 2026 Shared Task on {AI4Industrial Automation}: {NL2PLC} Code Generation and Understanding},
+  howpublished = {Task website},
+  year   = {2026},
+  url    = {https://fire2026-ai4industry.github.io/fire2026-nl2plc/},
+}
+@misc{iec61131-3,
+  author = {{International Electrotechnical Commission}},
+  title  = {{IEC 61131-3:2013 Programmable Controllers -- Part 3: Programming Languages}},
+  howpublished = {International Standard}, year = {2013},
+  url    = {https://webstore.iec.ch/publication/4552},
+}
+@book{john2010iec,
+  author = {Karl-Heinz John and Michael Tiegelkamp},
+  title  = {{IEC} 61131-3: Programming Industrial Automation Systems},
+  publisher = {Springer}, edition = {2nd}, year = {2010},
+  doi    = {10.1007/978-3-642-12015-2},
+}
+@misc{modbus2012,
+  author = {{Modbus Organization}},
+  title  = {{MODBUS} Application Protocol Specification {V1.1b3}},
+  year   = {2012},
+  url    = {https://www.modbus.org/file/secure/modbusprotocolspecification.pdf},
+}
+
+% ---------------------------------------------------------------- LLMs for PLC, PLC verification
+@inproceedings{koziolek2023etfa,
+  author = {Heiko Koziolek and Sten Gr{\"u}ner and Virendra Ashiwal},
+  title  = {{ChatGPT} for {PLC/DCS} Control Logic Generation},
+  booktitle = {Proc.\ IEEE ETFA}, pages = {1--8}, year = {2023},
+  doi    = {10.1109/ETFA54631.2023.10275411},
+}
+@inproceedings{koziolek2024rag,
+  author = {Heiko Koziolek and others},
+  title  = {{LLM}-based and Retrieval-Augmented Control Code Generation},
+  booktitle = {Proc.\ LLM4Code Workshop}, pages = {22--29}, year = {2024},
+  doi    = {10.1145/3643795.3648384},
+}
+@inproceedings{fakih2024llm4plc,
+  author = {Mohamad Fakih and others},
+  title  = {{LLM4PLC}: Harnessing Large Language Models for Verifiable Programming of {PLCs} in Industrial Control Systems},
+  booktitle = {Proc.\ ICSE-SEIP}, year = {2024},
+  doi    = {10.1145/3639477.3639743},
+}
+@misc{liu2024agents4plc,
+  author = {Zihan Liu and others},
+  title  = {{Agents4PLC}: Automating Closed-loop {PLC} Code Generation and Verification in Industrial Control Systems using {LLM}-based Agents},
+  year   = {2024},
+  eprint = {2410.14209},
+}
+@inproceedings{darvas2015plcverif,
+  author = {D{\'a}niel Darvas and Enrique {Blanco Vi{\~n}uela} and Borja {Fern{\'a}ndez Adiego}},
+  title  = {{PLCverif}: A Tool to Verify {PLC} Programs Based on Model Checking Techniques},
+  booktitle = {Proc.\ ICALEPCS}, year = {2015},
+  doi    = {10.18429/JACoW-ICALEPCS2015-WEPGF092},
+}
+@article{ovatman2016overview,
+  author = {Tolga Ovatman and others},
+  title  = {An Overview of Model Checking Practices on Verification of {PLC} Software},
+  journal = {Software \& Systems Modeling}, volume = {15}, number = {4}, pages = {937--960}, year = {2016},
+  doi    = {10.1007/s10270-014-0448-7},
+}
+
+% ---------------------------------------------------------------- code LLMs
+@misc{chen2021codex,
+  author = {Mark Chen and others},
+  title  = {Evaluating Large Language Models Trained on Code},
+  year   = {2021},
+  eprint = {2107.03374},
+}
+@misc{austin2021mbpp,
+  author = {Jacob Austin and others},
+  title  = {Program Synthesis with Large Language Models},
+  year   = {2021},
+  eprint = {2108.07732},
+}
+@inproceedings{nijkamp2023codegen,
+  author = {Erik Nijkamp and others},
+  title  = {{CodeGen}: An Open Large Language Model for Code with Multi-Turn Program Synthesis},
+  booktitle = {Proc.\ ICLR}, year = {2023},
+  eprint = {2203.13474},
+}
+@article{li2023starcoder,
+  author = {Raymond Li and others},
+  title  = {{StarCoder}: May the Source Be with You!},
+  journal = {Trans.\ Mach.\ Learn.\ Res.}, year = {2023},
+  eprint = {2305.06161},
+}
+@misc{roziere2023codellama,
+  author = {Baptiste Rozi{\`e}re and others},
+  title  = {Code {Llama}: Open Foundation Models for Code},
+  year   = {2023},
+  eprint = {2308.12950},
+}
+@misc{guo2024deepseekcoder,
+  author = {Daya Guo and others},
+  title  = {{DeepSeek-Coder}: When the Large Language Model Meets Programming -- The Rise of Code Intelligence},
+  year   = {2024},
+  eprint = {2401.14196},
+}
+@misc{hui2024qwen25coder,
+  author = {Binyuan Hui and others},
+  title  = {{Qwen2.5-Coder} Technical Report},
+  year   = {2024},
+  eprint = {2409.12186},
+}
+@misc{deepseekv3,
+  author = {{DeepSeek-AI}},
+  title  = {{DeepSeek-V3} Technical Report},
+  year   = {2024},
+  eprint = {2412.19437},
+}
+@article{li2022alphacode,
+  author = {Yujia Li and others},
+  title  = {Competition-Level Code Generation with {AlphaCode}},
+  journal = {Science}, volume = {378}, number = {6624}, pages = {1092--1097}, year = {2022},
+  doi    = {10.1126/science.abq1158},
+}
+@article{cassano2023multiple,
+  author = {Federico Cassano and others},
+  title  = {{MultiPL-E}: A Scalable and Polyglot Approach to Benchmarking Neural Code Generation},
+  journal = {IEEE Trans.\ Softw.\ Eng.}, volume = {49}, number = {7}, year = {2023},
+  doi    = {10.1109/TSE.2023.3267446},
+}
+@article{cassano2024multiplt,
+  author = {Federico Cassano and others},
+  title  = {Knowledge Transfer from High-Resource to Low-Resource Programming Languages for Code {LLMs}},
+  journal = {Proc.\ ACM Program.\ Lang.\ (OOPSLA)}, volume = {8}, pages = {677--708}, year = {2024},
+  doi    = {10.1145/3689735},
+}
+
+% ---------------------------------------------------------------- adaptation and synthetic data
+@inproceedings{houlsby2019adapters,
+  author = {Neil Houlsby and others},
+  title  = {Parameter-Efficient Transfer Learning for {NLP}},
+  booktitle = {Proc.\ ICML}, year = {2019},
+  eprint = {1902.00751},
+}
+@inproceedings{hu2022lora,
+  author = {Edward J. Hu and others},
+  title  = {{LoRA}: Low-Rank Adaptation of Large Language Models},
+  booktitle = {Proc.\ ICLR}, year = {2022},
+  eprint = {2106.09685},
+}
+@inproceedings{dettmers2023qlora,
+  author = {Tim Dettmers and others},
+  title  = {{QLoRA}: Efficient Finetuning of Quantized {LLMs}},
+  booktitle = {Proc.\ NeurIPS}, year = {2023},
+  eprint = {2305.14314},
+}
+@inproceedings{wang2023selfinstruct,
+  author = {Yizhong Wang and others},
+  title  = {{Self-Instruct}: Aligning Language Models with Self-Generated Instructions},
+  booktitle = {Proc.\ ACL}, pages = {13484--13508}, year = {2023},
+  doi    = {10.18653/v1/2023.acl-long.754},
+}
+@inproceedings{luo2024wizardcoder,
+  author = {Ziyang Luo and others},
+  title  = {{WizardCoder}: Empowering Code Large Language Models with {Evol-Instruct}},
+  booktitle = {Proc.\ ICLR}, year = {2024},
+  eprint = {2306.08568},
+}
+@inproceedings{wei2024magicoder,
+  author = {Yuxiang Wei and others},
+  title  = {{Magicoder}: Empowering Code Generation with {OSS-Instruct}},
+  booktitle = {Proc.\ ICML}, year = {2024},
+  eprint = {2312.02120},
+}
+
+% ---------------------------------------------------------------- structured / constrained generation
+@inproceedings{yin2017syntactic,
+  author = {Pengcheng Yin and Graham Neubig},
+  title  = {A Syntactic Neural Model for General-Purpose Code Generation},
+  booktitle = {Proc.\ ACL}, pages = {440--450}, year = {2017},
+  doi    = {10.18653/v1/P17-1041},
+}
+@inproceedings{rabinovich2017asn,
+  author = {Maxim Rabinovich and Mitchell Stern and Dan Klein},
+  title  = {Abstract Syntax Networks for Code Generation and Semantic Parsing},
+  booktitle = {Proc.\ ACL}, pages = {1139--1149}, year = {2017},
+  doi    = {10.18653/v1/P17-1105},
+}
+@inproceedings{scholak2021picard,
+  author = {Torsten Scholak and Nathan Schucher and Dzmitry Bahdanau},
+  title  = {{PICARD}: Parsing Incrementally for Constrained Auto-Regressive Decoding from Language Models},
+  booktitle = {Proc.\ EMNLP}, pages = {9895--9901}, year = {2021},
+  doi    = {10.18653/v1/2021.emnlp-main.779},
+}
+@inproceedings{poesia2022synchromesh,
+  author = {Gabriel Poesia and others},
+  title  = {{Synchromesh}: Reliable Code Generation from Pre-trained Language Models},
+  booktitle = {Proc.\ ICLR}, year = {2022},
+  eprint = {2201.11227},
+}
+@inproceedings{geng2023gcd,
+  author = {Saibo Geng and others},
+  title  = {Grammar-Constrained Decoding for Structured {NLP} Tasks without Finetuning},
+  booktitle = {Proc.\ EMNLP}, pages = {10932--10952}, year = {2023},
+  doi    = {10.18653/v1/2023.emnlp-main.674},
+}
+@misc{willard2023outlines,
+  author = {Brandon T. Willard and R{\'e}mi Louf},
+  title  = {Efficient Guided Generation for Large Language Models},
+  year   = {2023},
+  eprint = {2307.09702},
+}
+
+% ---------------------------------------------------------------- self-repair, verification-based selection
+@inproceedings{chen2024selfdebug,
+  author = {Xinyun Chen and others},
+  title  = {Teaching Large Language Models to Self-Debug},
+  booktitle = {Proc.\ ICLR}, year = {2024},
+  eprint = {2304.05128},
+}
+@inproceedings{madaan2023selfrefine,
+  author = {Aman Madaan and others},
+  title  = {{Self-Refine}: Iterative Refinement with Self-Feedback},
+  booktitle = {Proc.\ NeurIPS}, year = {2023},
+  eprint = {2303.17651},
+}
+@inproceedings{shinn2023reflexion,
+  author = {Noah Shinn and others},
+  title  = {Reflexion: Language Agents with Verbal Reinforcement Learning},
+  booktitle = {Proc.\ NeurIPS}, year = {2023},
+  eprint = {2303.11366},
+}
+@inproceedings{olausson2024selfrepair,
+  author = {Theo X. Olausson and others},
+  title  = {Is Self-Repair a Silver Bullet for Code Generation?},
+  booktitle = {Proc.\ ICLR}, year = {2024},
+  eprint = {2306.09896},
+}
+@inproceedings{huang2024cannot,
+  author = {Jie Huang and others},
+  title  = {Large Language Models Cannot Self-Correct Reasoning Yet},
+  booktitle = {Proc.\ ICLR}, year = {2024},
+  eprint = {2310.01798},
+}
+@inproceedings{chen2023codet,
+  author = {Bei Chen and others},
+  title  = {{CodeT}: Code Generation with Generated Tests},
+  booktitle = {Proc.\ ICLR}, year = {2023},
+  eprint = {2207.10397},
+}
+@inproceedings{ni2023lever,
+  author = {Ansong Ni and others},
+  title  = {{LEVER}: Learning to Verify Language-to-Code Generation with Execution},
+  booktitle = {Proc.\ ICML}, year = {2023},
+  eprint = {2302.08468},
+}
+
+% ---------------------------------------------------------------- evaluating code
+@misc{ren2020codebleu,
+  author = {Shuo Ren and others},
+  title  = {{CodeBLEU}: a Method for Automatic Evaluation of Code Synthesis},
+  year   = {2020},
+  eprint = {2009.10297},
+}
+@inproceedings{guo2021graphcodebert,
+  author = {Daya Guo and others},
+  title  = {{GraphCodeBERT}: Pre-training Code Representations with Data Flow},
+  booktitle = {Proc.\ ICLR}, year = {2021},
+  eprint = {2009.08366},
+}
+@article{ferrante1987pdg,
+  author = {Jeanne Ferrante and Karl J. Ottenstein and Joe D. Warren},
+  title  = {The Program Dependence Graph and Its Use in Optimization},
+  journal = {ACM Trans.\ Program.\ Lang.\ Syst.}, volume = {9}, number = {3}, pages = {319--349}, year = {1987},
+  doi    = {10.1145/24039.24041},
+}
+@inproceedings{liu2023evalplus,
+  author = {Jiawei Liu and others},
+  title  = {Is Your Code Generated by {ChatGPT} Really Correct? {R}igorous Evaluation of Large Language Models for Code Generation},
+  booktitle = {Proc.\ NeurIPS}, year = {2023},
+  eprint = {2305.01210},
+}

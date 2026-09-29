@@ -1,0 +1,2506 @@
+{
+ "n_tasks": 30,
+ "n_probe_checks": 169,
+ "probe_checks_per_task": {
+  "1": 7,
+  "2": 5,
+  "3": 8,
+  "4": 8,
+  "5": 5,
+  "6": 8,
+  "7": 4,
+  "8": 6,
+  "9": 6,
+  "10": 7,
+  "11": 7,
+  "12": 5,
+  "13": 5,
+  "14": 7,
+  "15": 5,
+  "16": 6,
+  "17": 6,
+  "18": 4,
+  "19": 8,
+  "20": 7,
+  "21": 6,
+  "22": 8,
+  "23": 4,
+  "24": 5,
+  "25": 4,
+  "26": 3,
+  "27": 3,
+  "28": 4,
+  "29": 4,
+  "30": 4
+ },
+ "required_io_total": 151,
+ "required_durations": {
+  "2": [
+   2000,
+   5000
+  ],
+  "5": [
+   10000
+  ],
+  "8": [
+   30000
+  ],
+  "10": [
+   10000,
+   15000,
+   20000
+  ],
+  "11": [
+   1000
+  ],
+  "12": [
+   500
+  ],
+  "17": [
+   600000
+  ],
+  "18": [
+   500
+  ],
+  "20": [
+   500
+  ],
+  "22": [
+   8000
+  ],
+  "24": [
+   500
+  ]
+ },
+ "null_baseline": {
+  "checks_passed": 78,
+  "tasks_all": 0,
+  "active_earned": 0
+ },
+ "n_active_checks": 91,
+ "active_by_category": {
+  "memory": 26,
+  "timing": 34,
+  "direct": 31
+ },
+ "always_on_baseline": {
+  "checks_passed": 64,
+  "active_passed": 50,
+  "active_earned": 2
+ },
+ "reference_check": {
+  "checks_passed": 169,
+  "tasks_all": 30
+ },
+ "configs": {
+  "oneshot7": {
+   "parsed": 26,
+   "active_raw_passed": 20,
+   "active_checks_passed": 18,
+   "active_per_task": {
+    "1": [
+     0,
+     1
+    ],
+    "2": [
+     0,
+     5
+    ],
+    "3": [
+     3,
+     5
+    ],
+    "4": [
+     0,
+     4
+    ],
+    "5": [
+     2,
+     2
+    ],
+    "6": [
+     2,
+     5
+    ],
+    "7": [
+     0,
+     2
+    ],
+    "8": [
+     0,
+     5
+    ],
+    "9": [
+     3,
+     3
+    ],
+    "10": [
+     0,
+     6
+    ],
+    "11": [
+     1,
+     3
+    ],
+    "12": [
+     0,
+     2
+    ],
+    "13": [
+     2,
+     3
+    ],
+    "14": [
+     0,
+     5
+    ],
+    "15": [
+     2,
+     3
+    ],
+    "16": [
+     0,
+     4
+    ],
+    "17": [
+     0,
+     3
+    ],
+    "18": [
+     0,
+     1
+    ],
+    "19": [
+     0,
+     4
+    ],
+    "20": [
+     0,
+     3
+    ],
+    "21": [
+     1,
+     2
+    ],
+    "22": [
+     1,
+     4
+    ],
+    "23": [
+     0,
+     2
+    ],
+    "24": [
+     0,
+     4
+    ],
+    "25": [
+     0,
+     2
+    ],
+    "26": [
+     0,
+     1
+    ],
+    "27": [
+     0,
+     1
+    ],
+    "28": [
+     1,
+     2
+    ],
+    "29": [
+     0,
+     2
+    ],
+    "30": [
+     0,
+     2
+    ]
+   },
+   "active_earned_labels": {
+    "3": [
+     "trip sets fault lamp",
+     "fault stays latched",
+     "reset ignored while trip active"
+    ],
+    "5": [
+     "auger runs in auto at low level",
+     "alarm after 10 s at high level"
+    ],
+    "6": [
+     "trip sets fault lamp",
+     "reset ignored while trip active"
+    ],
+    "9": [
+     "open button latches opening",
+     "close button latches closing",
+     "obstacle while closing reverses door"
+    ],
+    "11": [
+     "pusher fires on 5th box"
+    ],
+    "13": [
+     "heater on below setpoint - 5",
+     "heater back on below setpoint - 5"
+    ],
+    "15": [
+     "starts below 80 psi",
+     "restarts below 80 psi"
+    ],
+    "21": [
+     "fault lamp on when obstructed"
+    ],
+    "22": [
+     "alarm after 8 s blocked"
+    ],
+    "28": [
+     "display shows RPM"
+    ]
+   },
+   "active_passed_by_category": {
+    "memory": 3,
+    "timing": 3,
+    "direct": 12
+   },
+   "active_rate_clean": 0.327,
+   "active_rate_not_clean": 0.048,
+   "front_end_ok": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    26,
+    27,
+    28,
+    29
+   ],
+   "front_end_errors": {
+    "4": "assignment to undeclared Bottle_Count",
+    "25": "undeclared identifier Scaled_PHSensor"
+   },
+   "probe_checks_passed": 77,
+   "probe_tasks_all": [
+    5,
+    9
+   ],
+   "probe_tasks_ge80": [
+    5,
+    9,
+    13,
+    15,
+    21
+   ],
+   "probe_per_task": {
+    "1": [
+     3,
+     7
+    ],
+    "2": [
+     0,
+     5
+    ],
+    "3": [
+     6,
+     8
+    ],
+    "4": [
+     0,
+     8
+    ],
+    "5": [
+     5,
+     5
+    ],
+    "6": [
+     5,
+     8
+    ],
+    "7": [
+     2,
+     4
+    ],
+    "8": [
+     0,
+     6
+    ],
+    "9": [
+     6,
+     6
+    ],
+    "10": [
+     1,
+     7
+    ],
+    "11": [
+     5,
+     7
+    ],
+    "12": [
+     2,
+     5
+    ],
+    "13": [
+     4,
+     5
+    ],
+    "14": [
+     2,
+     7
+    ],
+    "15": [
+     4,
+     5
+    ],
+    "16": [
+     0,
+     6
+    ],
+    "17": [
+     3,
+     6
+    ],
+    "18": [
+     2,
+     4
+    ],
+    "19": [
+     4,
+     8
+    ],
+    "20": [
+     4,
+     7
+    ],
+    "21": [
+     5,
+     6
+    ],
+    "22": [
+     5,
+     8
+    ],
+    "23": [
+     0,
+     4
+    ],
+    "24": [
+     0,
+     5
+    ],
+    "25": [
+     0,
+     4
+    ],
+    "26": [
+     2,
+     3
+    ],
+    "27": [
+     2,
+     3
+    ],
+    "28": [
+     3,
+     4
+    ],
+    "29": [
+     2,
+     4
+    ],
+    "30": [
+     0,
+     4
+    ]
+   },
+   "probe_failed_labels": {
+    "1": [
+     "idle: pump off",
+     "no restart without start",
+     "stop button stops pump",
+     "no start while low-level sensor active"
+    ],
+    "2": [
+     "red phase",
+     "green phase",
+     "yellow phase",
+     "cycle repeats (red)",
+     "cycle repeats (green)"
+    ],
+    "3": [
+     "start latches motor",
+     "restart after reset"
+    ],
+    "4": [
+     "valve closed before cycle start",
+     "valve opens: bottle present, not full",
+     "valve closes when full",
+     "count = 1 after first bottle",
+     "valve reopens for next bottle",
+     "count = 2 after second bottle",
+     "stop resets counter",
+     "valve closed after stop"
+    ],
+    "6": [
+     "start latches motor",
+     "fault stays latched",
+     "restart after reset"
+    ],
+    "7": [
+     "low speed when select off",
+     "high speed when select on"
+    ],
+    "8": [
+     "start opens both valves",
+     "valve A closes on its own level",
+     "valve B closes and mixer starts",
+     "mixer still running before 30 s",
+     "mixer stops after 30 s",
+     "batch complete after mixing"
+    ],
+    "10": [
+     "wash runs first",
+     "wash still on at 19 s",
+     "rinse follows 20 s wash",
+     "rinse still on at 34 s",
+     "dryer follows 15 s rinse",
+     "cycle complete after 10 s drying"
+    ],
+    "11": [
+     "count resets after push",
+     "counting restarts from zero"
+    ],
+    "12": [
+     "in-tolerance part not rejected",
+     "overweight part rejected",
+     "underweight part rejected"
+    ],
+    "13": [
+     "heater holds inside band while heating"
+    ],
+    "14": [
+     "fan1 on above 30.0 C",
+     "fan1 holds between 28 and 30 C",
+     "both fans on above 35.0 C",
+     "fan2 holds between 33 and 35 C",
+     "fan2 off below 33.0 C"
+    ],
+    "15": [
+     "keeps running inside band"
+    ],
+    "16": [
+     "CO2 500 ppm -> 0%",
+     "CO2 600 ppm -> 0%",
+     "CO2 700 ppm -> 25%",
+     "CO2 800 ppm -> 50%",
+     "CO2 1000 ppm -> 100%",
+     "CO2 1200 ppm -> 100%"
+    ],
+    "17": [
+     "manual start opens valve",
+     "valve still open at 9.5 min",
+     "valve stays open after moisture recovers"
+    ],
+    "18": [
+     "good part not rejected",
+     "failed part rejected"
+    ],
+    "19": [
+     "call to floor 2 latches up",
+     "keeps moving up between floors",
+     "call to floor 1 latches down",
+     "keeps moving down between floors"
+    ],
+    "20": [
+     "start extends cylinder",
+     "gripper closes at extended position",
+     "cylinder held extended during dwell"
+    ],
+    "21": [
+     "start latches conveyor"
+    ],
+    "22": [
+     "start latches conveyor",
+     "conveyor runs before jam",
+     "alarm stays latched"
+    ],
+    "23": [
+     "valve A open while running",
+     "valve B opens once per 4 flow pulses",
+     "valve A closes on stop",
+     "no dosing while stopped"
+    ],
+    "24": [
+     "exactly one lamp lit at a time",
+     "lamps light in order 1-2-3-4, repeating",
+     "each lamp lit for ~500 ms",
+     "all lamps off when stopped",
+     "sequence restarts at Lamp1"
+    ],
+    "25": [
+     "no dosing at pH 7.00",
+     "acid above 7.20",
+     "base below 6.80",
+     "dosing stops back in range"
+    ],
+    "26": [
+     "start latches conveyor"
+    ],
+    "27": [
+     "speed output = RPM_Set while running"
+    ],
+    "28": [
+     "speed output = RPM_Set while running"
+    ],
+    "29": [
+     "speed output = RPM_Set while running",
+     "display shows RPM"
+    ],
+    "30": [
+     "no speed output when stopped",
+     "speed output = RPM_Set while running",
+     "display shows RPM",
+     "speed output zero after stop"
+    ]
+   },
+   "probe_errors": {
+    "4": "assignment to undeclared Bottle_Count",
+    "8": "no program",
+    "23": "no program",
+    "24": "no program",
+    "25": "undeclared identifier Scaled_PHSensor",
+    "30": "no program"
+   },
+   "clean": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    9,
+    11,
+    12,
+    13,
+    15,
+    16,
+    17,
+    19,
+    26,
+    28
+   ],
+   "clean_and_probe_all": [
+    5,
+    9
+   ],
+   "probe_all_not_clean": [],
+   "probe_rate_clean": 0.551,
+   "probe_rate_not_clean": 0.35,
+   "interface_parsed_programs": {
+    "required": 121,
+    "declared": 120,
+    "direction_ok": 120,
+    "type_ok": 116,
+    "used": 113,
+    "exact_case": 109,
+    "real_on_word": 1,
+    "extra_io": 0
+   },
+   "interface_complete_tasks": [
+    2,
+    3,
+    5,
+    6,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    19,
+    22,
+    25,
+    26
+   ],
+   "interface_detail": {
+    "1": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 5,
+     "used": 4,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "4": {
+     "required": 6,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 5,
+     "used": 5,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "7": {
+     "required": 7,
+     "declared": 7,
+     "direction_ok": 7,
+     "type_ok": 7,
+     "used": 6,
+     "exact_case": 7,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "18": {
+     "required": 3,
+     "declared": 3,
+     "direction_ok": 3,
+     "type_ok": 3,
+     "used": 2,
+     "exact_case": 3,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "20": {
+     "required": 6,
+     "declared": 6,
+     "direction_ok": 6,
+     "type_ok": 6,
+     "used": 5,
+     "exact_case": 6,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "21": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 5,
+     "used": 4,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "27": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 4,
+     "used": 4,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "28": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 4,
+     "used": 5,
+     "exact_case": 0,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "29": {
+     "required": 8,
+     "declared": 8,
+     "direction_ok": 8,
+     "type_ok": 6,
+     "used": 7,
+     "exact_case": 8,
+     "real_on_word": 0,
+     "extra_io": 0
+    }
+   },
+   "durations_matched": 10,
+   "durations_required": 12,
+   "duration_detail": {
+    "2": {
+     "want": [
+      2000,
+      5000
+     ],
+     "have": [
+      2000,
+      5000
+     ]
+    },
+    "5": {
+     "want": [
+      10000
+     ],
+     "have": [
+      10000
+     ]
+    },
+    "10": {
+     "want": [
+      10000,
+      15000,
+      20000
+     ],
+     "have": [
+      10000,
+      15000,
+      20000
+     ]
+    },
+    "11": {
+     "want": [
+      1000
+     ],
+     "have": [
+      1000
+     ]
+    },
+    "12": {
+     "want": [
+      500
+     ],
+     "have": []
+    },
+    "17": {
+     "want": [
+      600000
+     ],
+     "have": [
+      10000
+     ]
+    },
+    "18": {
+     "want": [
+      500
+     ],
+     "have": [
+      500
+     ]
+    },
+    "20": {
+     "want": [
+      500
+     ],
+     "have": [
+      500
+     ]
+    },
+    "22": {
+     "want": [
+      8000
+     ],
+     "have": [
+      8000
+     ]
+    }
+   }
+  },
+  "repair7": {
+   "parsed": 27,
+   "active_raw_passed": 25,
+   "active_checks_passed": 20,
+   "active_per_task": {
+    "1": [
+     0,
+     1
+    ],
+    "2": [
+     0,
+     5
+    ],
+    "3": [
+     3,
+     5
+    ],
+    "4": [
+     0,
+     4
+    ],
+    "5": [
+     2,
+     2
+    ],
+    "6": [
+     2,
+     5
+    ],
+    "7": [
+     0,
+     2
+    ],
+    "8": [
+     0,
+     5
+    ],
+    "9": [
+     3,
+     3
+    ],
+    "10": [
+     0,
+     6
+    ],
+    "11": [
+     1,
+     3
+    ],
+    "12": [
+     0,
+     2
+    ],
+    "13": [
+     2,
+     3
+    ],
+    "14": [
+     3,
+     5
+    ],
+    "15": [
+     2,
+     3
+    ],
+    "16": [
+     0,
+     4
+    ],
+    "17": [
+     0,
+     3
+    ],
+    "18": [
+     0,
+     1
+    ],
+    "19": [
+     0,
+     4
+    ],
+    "20": [
+     0,
+     3
+    ],
+    "21": [
+     0,
+     2
+    ],
+    "22": [
+     1,
+     4
+    ],
+    "23": [
+     0,
+     2
+    ],
+    "24": [
+     0,
+     4
+    ],
+    "25": [
+     0,
+     2
+    ],
+    "26": [
+     0,
+     1
+    ],
+    "27": [
+     0,
+     1
+    ],
+    "28": [
+     1,
+     2
+    ],
+    "29": [
+     0,
+     2
+    ],
+    "30": [
+     0,
+     2
+    ]
+   },
+   "active_earned_labels": {
+    "3": [
+     "trip sets fault lamp",
+     "fault stays latched",
+     "reset ignored while trip active"
+    ],
+    "5": [
+     "auger runs in auto at low level",
+     "alarm after 10 s at high level"
+    ],
+    "6": [
+     "trip sets fault lamp",
+     "reset ignored while trip active"
+    ],
+    "9": [
+     "open button latches opening",
+     "close button latches closing",
+     "obstacle while closing reverses door"
+    ],
+    "11": [
+     "pusher fires on 5th box"
+    ],
+    "13": [
+     "heater on below setpoint - 5",
+     "heater back on below setpoint - 5"
+    ],
+    "14": [
+     "fan1 on above 30.0 C",
+     "both fans on above 35.0 C",
+     "fan2 off below 33.0 C"
+    ],
+    "15": [
+     "starts below 80 psi",
+     "restarts below 80 psi"
+    ],
+    "22": [
+     "alarm after 8 s blocked"
+    ],
+    "28": [
+     "display shows RPM"
+    ]
+   },
+   "active_passed_by_category": {
+    "memory": 3,
+    "timing": 3,
+    "direct": 14
+   },
+   "active_rate_clean": 0.333,
+   "active_rate_not_clean": 0.0,
+   "front_end_ok": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    25,
+    26,
+    27,
+    28,
+    29
+   ],
+   "front_end_errors": {
+    "4": "assignment to undeclared Bottle_Count",
+    "21": "undeclared identifier IdStop_Button"
+   },
+   "probe_checks_passed": 78,
+   "probe_tasks_all": [
+    5,
+    9
+   ],
+   "probe_tasks_ge80": [
+    5,
+    9,
+    13,
+    15
+   ],
+   "probe_per_task": {
+    "1": [
+     3,
+     7
+    ],
+    "2": [
+     0,
+     5
+    ],
+    "3": [
+     6,
+     8
+    ],
+    "4": [
+     0,
+     8
+    ],
+    "5": [
+     5,
+     5
+    ],
+    "6": [
+     5,
+     8
+    ],
+    "7": [
+     2,
+     4
+    ],
+    "8": [
+     0,
+     6
+    ],
+    "9": [
+     6,
+     6
+    ],
+    "10": [
+     1,
+     7
+    ],
+    "11": [
+     5,
+     7
+    ],
+    "12": [
+     2,
+     5
+    ],
+    "13": [
+     4,
+     5
+    ],
+    "14": [
+     5,
+     7
+    ],
+    "15": [
+     4,
+     5
+    ],
+    "16": [
+     0,
+     6
+    ],
+    "17": [
+     3,
+     6
+    ],
+    "18": [
+     1,
+     4
+    ],
+    "19": [
+     4,
+     8
+    ],
+    "20": [
+     4,
+     7
+    ],
+    "21": [
+     0,
+     6
+    ],
+    "22": [
+     6,
+     8
+    ],
+    "23": [
+     2,
+     4
+    ],
+    "24": [
+     0,
+     5
+    ],
+    "25": [
+     1,
+     4
+    ],
+    "26": [
+     2,
+     3
+    ],
+    "27": [
+     2,
+     3
+    ],
+    "28": [
+     3,
+     4
+    ],
+    "29": [
+     2,
+     4
+    ],
+    "30": [
+     0,
+     4
+    ]
+   },
+   "probe_failed_labels": {
+    "1": [
+     "idle: pump off",
+     "no restart without start",
+     "stop button stops pump",
+     "no start while low-level sensor active"
+    ],
+    "2": [
+     "red phase",
+     "green phase",
+     "yellow phase",
+     "cycle repeats (red)",
+     "cycle repeats (green)"
+    ],
+    "3": [
+     "start latches motor",
+     "restart after reset"
+    ],
+    "4": [
+     "valve closed before cycle start",
+     "valve opens: bottle present, not full",
+     "valve closes when full",
+     "count = 1 after first bottle",
+     "valve reopens for next bottle",
+     "count = 2 after second bottle",
+     "stop resets counter",
+     "valve closed after stop"
+    ],
+    "6": [
+     "start latches motor",
+     "fault stays latched",
+     "restart after reset"
+    ],
+    "7": [
+     "low speed when select off",
+     "high speed when select on"
+    ],
+    "8": [
+     "start opens both valves",
+     "valve A closes on its own level",
+     "valve B closes and mixer starts",
+     "mixer still running before 30 s",
+     "mixer stops after 30 s",
+     "batch complete after mixing"
+    ],
+    "10": [
+     "wash runs first",
+     "wash still on at 19 s",
+     "rinse follows 20 s wash",
+     "rinse still on at 34 s",
+     "dryer follows 15 s rinse",
+     "cycle complete after 10 s drying"
+    ],
+    "11": [
+     "count resets after push",
+     "counting restarts from zero"
+    ],
+    "12": [
+     "in-tolerance part not rejected",
+     "overweight part rejected",
+     "underweight part rejected"
+    ],
+    "13": [
+     "heater holds inside band while heating"
+    ],
+    "14": [
+     "fan1 holds between 28 and 30 C",
+     "fan2 holds between 33 and 35 C"
+    ],
+    "15": [
+     "keeps running inside band"
+    ],
+    "16": [
+     "CO2 500 ppm -> 0%",
+     "CO2 600 ppm -> 0%",
+     "CO2 700 ppm -> 25%",
+     "CO2 800 ppm -> 50%",
+     "CO2 1000 ppm -> 100%",
+     "CO2 1200 ppm -> 100%"
+    ],
+    "17": [
+     "manual start opens valve",
+     "valve still open at 9.5 min",
+     "valve stays open after moisture recovers"
+    ],
+    "18": [
+     "no reject without a detect event",
+     "failed part rejected",
+     "reject pulse ends after 500 ms"
+    ],
+    "19": [
+     "call to floor 2 latches up",
+     "keeps moving up between floors",
+     "call to floor 1 latches down",
+     "keeps moving down between floors"
+    ],
+    "20": [
+     "start extends cylinder",
+     "gripper closes at extended position",
+     "cylinder held extended during dwell"
+    ],
+    "21": [
+     "fault lamp off when curtain clear",
+     "start latches conveyor",
+     "obstruction stops conveyor",
+     "fault lamp on when obstructed",
+     "cannot start while obstructed",
+     "stop button stops conveyor"
+    ],
+    "22": [
+     "jam stops conveyor",
+     "alarm stays latched"
+    ],
+    "23": [
+     "valve A open while running",
+     "valve B opens once per 4 flow pulses"
+    ],
+    "24": [
+     "exactly one lamp lit at a time",
+     "lamps light in order 1-2-3-4, repeating",
+     "each lamp lit for ~500 ms",
+     "all lamps off when stopped",
+     "sequence restarts at Lamp1"
+    ],
+    "25": [
+     "no dosing at pH 7.00",
+     "acid above 7.20",
+     "dosing stops back in range"
+    ],
+    "26": [
+     "start latches conveyor"
+    ],
+    "27": [
+     "speed output = RPM_Set while running"
+    ],
+    "28": [
+     "speed output = RPM_Set while running"
+    ],
+    "29": [
+     "speed output = RPM_Set while running",
+     "display shows RPM"
+    ],
+    "30": [
+     "no speed output when stopped",
+     "speed output = RPM_Set while running",
+     "display shows RPM",
+     "speed output zero after stop"
+    ]
+   },
+   "probe_errors": {
+    "4": "assignment to undeclared Bottle_Count",
+    "8": "no program",
+    "21": "undeclared identifier IdStop_Button",
+    "24": "no program",
+    "30": "no program"
+   },
+   "clean": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    9,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    19,
+    21,
+    22,
+    26,
+    28
+   ],
+   "clean_and_probe_all": [
+    5,
+    9
+   ],
+   "probe_all_not_clean": [],
+   "probe_rate_clean": 0.545,
+   "probe_rate_not_clean": 0.305,
+   "interface_parsed_programs": {
+    "required": 126,
+    "declared": 125,
+    "direction_ok": 125,
+    "type_ok": 121,
+    "used": 119,
+    "exact_case": 114,
+    "real_on_word": 1,
+    "extra_io": 2
+   },
+   "interface_complete_tasks": [
+    2,
+    3,
+    5,
+    6,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    19,
+    20,
+    22,
+    23,
+    25,
+    26
+   ],
+   "interface_detail": {
+    "1": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 5,
+     "used": 4,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "4": {
+     "required": 6,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 5,
+     "used": 5,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "7": {
+     "required": 7,
+     "declared": 7,
+     "direction_ok": 7,
+     "type_ok": 7,
+     "used": 6,
+     "exact_case": 7,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "18": {
+     "required": 3,
+     "declared": 3,
+     "direction_ok": 3,
+     "type_ok": 3,
+     "used": 2,
+     "exact_case": 3,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "21": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 5,
+     "used": 4,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "27": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 4,
+     "used": 4,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "28": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 4,
+     "used": 5,
+     "exact_case": 0,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "29": {
+     "required": 8,
+     "declared": 8,
+     "direction_ok": 8,
+     "type_ok": 6,
+     "used": 7,
+     "exact_case": 8,
+     "real_on_word": 0,
+     "extra_io": 0
+    }
+   },
+   "durations_matched": 10,
+   "durations_required": 12,
+   "duration_detail": {
+    "2": {
+     "want": [
+      2000,
+      5000
+     ],
+     "have": [
+      2000,
+      5000
+     ]
+    },
+    "5": {
+     "want": [
+      10000
+     ],
+     "have": [
+      10000
+     ]
+    },
+    "10": {
+     "want": [
+      10000,
+      15000,
+      20000
+     ],
+     "have": [
+      10000,
+      15000,
+      20000
+     ]
+    },
+    "11": {
+     "want": [
+      1000
+     ],
+     "have": [
+      1000
+     ]
+    },
+    "12": {
+     "want": [
+      500
+     ],
+     "have": []
+    },
+    "17": {
+     "want": [
+      600000
+     ],
+     "have": [
+      10000
+     ]
+    },
+    "18": {
+     "want": [
+      500
+     ],
+     "have": [
+      500
+     ]
+    },
+    "20": {
+     "want": [
+      500
+     ],
+     "have": [
+      500,
+      1000
+     ]
+    },
+    "22": {
+     "want": [
+      8000
+     ],
+     "have": [
+      8000
+     ]
+    }
+   }
+  },
+  "repair15": {
+   "parsed": 30,
+   "active_raw_passed": 14,
+   "active_checks_passed": 4,
+   "active_per_task": {
+    "1": [
+     0,
+     1
+    ],
+    "2": [
+     0,
+     5
+    ],
+    "3": [
+     2,
+     5
+    ],
+    "4": [
+     0,
+     4
+    ],
+    "5": [
+     1,
+     2
+    ],
+    "6": [
+     0,
+     5
+    ],
+    "7": [
+     0,
+     2
+    ],
+    "8": [
+     0,
+     5
+    ],
+    "9": [
+     0,
+     3
+    ],
+    "10": [
+     0,
+     6
+    ],
+    "11": [
+     1,
+     3
+    ],
+    "12": [
+     0,
+     2
+    ],
+    "13": [
+     0,
+     3
+    ],
+    "14": [
+     0,
+     5
+    ],
+    "15": [
+     0,
+     3
+    ],
+    "16": [
+     0,
+     4
+    ],
+    "17": [
+     0,
+     3
+    ],
+    "18": [
+     0,
+     1
+    ],
+    "19": [
+     0,
+     4
+    ],
+    "20": [
+     0,
+     3
+    ],
+    "21": [
+     0,
+     2
+    ],
+    "22": [
+     0,
+     4
+    ],
+    "23": [
+     0,
+     2
+    ],
+    "24": [
+     0,
+     4
+    ],
+    "25": [
+     0,
+     2
+    ],
+    "26": [
+     0,
+     1
+    ],
+    "27": [
+     0,
+     1
+    ],
+    "28": [
+     0,
+     2
+    ],
+    "29": [
+     0,
+     2
+    ],
+    "30": [
+     0,
+     2
+    ]
+   },
+   "active_earned_labels": {
+    "3": [
+     "trip sets fault lamp",
+     "reset ignored while trip active"
+    ],
+    "5": [
+     "auger runs in auto at low level"
+    ],
+    "11": [
+     "pusher fires on 5th box"
+    ]
+   },
+   "active_passed_by_category": {
+    "memory": 0,
+    "timing": 1,
+    "direct": 3
+   },
+   "active_rate_clean": 0.057,
+   "active_rate_not_clean": 0.036,
+   "front_end_ok": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    29
+   ],
+   "front_end_errors": {
+    "4": "assignment to undeclared Bottle_Count",
+    "7": "assignment to undeclared Conveyor_Speed",
+    "28": "assignment to undeclared RPM_RPM",
+    "30": "assignment to undeclared total_boxes"
+   },
+   "probe_checks_passed": 67,
+   "probe_tasks_all": [],
+   "probe_tasks_ge80": [
+    5
+   ],
+   "probe_per_task": {
+    "1": [
+     5,
+     7
+    ],
+    "2": [
+     0,
+     5
+    ],
+    "3": [
+     5,
+     8
+    ],
+    "4": [
+     0,
+     8
+    ],
+    "5": [
+     4,
+     5
+    ],
+    "6": [
+     3,
+     8
+    ],
+    "7": [
+     0,
+     4
+    ],
+    "8": [
+     1,
+     6
+    ],
+    "9": [
+     3,
+     6
+    ],
+    "10": [
+     1,
+     7
+    ],
+    "11": [
+     4,
+     7
+    ],
+    "12": [
+     2,
+     5
+    ],
+    "13": [
+     2,
+     5
+    ],
+    "14": [
+     2,
+     7
+    ],
+    "15": [
+     3,
+     5
+    ],
+    "16": [
+     2,
+     6
+    ],
+    "17": [
+     3,
+     6
+    ],
+    "18": [
+     3,
+     4
+    ],
+    "19": [
+     4,
+     8
+    ],
+    "20": [
+     4,
+     7
+    ],
+    "21": [
+     3,
+     6
+    ],
+    "22": [
+     4,
+     8
+    ],
+    "23": [
+     2,
+     4
+    ],
+    "24": [
+     0,
+     5
+    ],
+    "25": [
+     1,
+     4
+    ],
+    "26": [
+     2,
+     3
+    ],
+    "27": [
+     2,
+     3
+    ],
+    "28": [
+     0,
+     4
+    ],
+    "29": [
+     2,
+     4
+    ],
+    "30": [
+     0,
+     4
+    ]
+   },
+   "probe_failed_labels": {
+    "1": [
+     "start latches pump",
+     "stop overrides start"
+    ],
+    "2": [
+     "red phase",
+     "green phase",
+     "yellow phase",
+     "cycle repeats (red)",
+     "cycle repeats (green)"
+    ],
+    "3": [
+     "start latches motor",
+     "fault stays latched",
+     "restart after reset"
+    ],
+    "4": [
+     "valve closed before cycle start",
+     "valve opens: bottle present, not full",
+     "valve closes when full",
+     "count = 1 after first bottle",
+     "valve reopens for next bottle",
+     "count = 2 after second bottle",
+     "stop resets counter",
+     "valve closed after stop"
+    ],
+    "5": [
+     "alarm after 10 s at high level"
+    ],
+    "6": [
+     "stop button stops motor",
+     "trip sets fault lamp",
+     "fault stays latched",
+     "reset ignored while trip active",
+     "reset clears fault"
+    ],
+    "7": [
+     "speed zero when stopped",
+     "low speed when select off",
+     "high speed when select on",
+     "speed zero after stop"
+    ],
+    "8": [
+     "start opens both valves",
+     "valve A closes on its own level",
+     "valve B closes and mixer starts",
+     "mixer still running before 30 s",
+     "batch complete after mixing"
+    ],
+    "9": [
+     "open button latches opening",
+     "close button latches closing",
+     "obstacle while closing reverses door"
+    ],
+    "10": [
+     "wash runs first",
+     "wash still on at 19 s",
+     "rinse follows 20 s wash",
+     "rinse still on at 34 s",
+     "dryer follows 15 s rinse",
+     "cycle complete after 10 s drying"
+    ],
+    "11": [
+     "display counts boxes",
+     "count resets after push",
+     "counting restarts from zero"
+    ],
+    "12": [
+     "in-tolerance part not rejected",
+     "overweight part rejected",
+     "underweight part rejected"
+    ],
+    "13": [
+     "heater on below setpoint - 5",
+     "heater holds inside band while heating",
+     "heater back on below setpoint - 5"
+    ],
+    "14": [
+     "fan1 on above 30.0 C",
+     "fan1 holds between 28 and 30 C",
+     "both fans on above 35.0 C",
+     "fan2 holds between 33 and 35 C",
+     "fan2 off below 33.0 C"
+    ],
+    "15": [
+     "keeps running inside band",
+     "stops above 120 psi"
+    ],
+    "16": [
+     "CO2 700 ppm -> 25%",
+     "CO2 800 ppm -> 50%",
+     "CO2 1000 ppm -> 100%",
+     "CO2 1200 ppm -> 100%"
+    ],
+    "17": [
+     "manual start opens valve",
+     "valve still open at 9.5 min",
+     "valve stays open after moisture recovers"
+    ],
+    "18": [
+     "failed part rejected"
+    ],
+    "19": [
+     "call to floor 2 latches up",
+     "keeps moving up between floors",
+     "stops at floor 1",
+     "no down move when already at floor 1"
+    ],
+    "20": [
+     "start extends cylinder",
+     "gripper closes at extended position",
+     "cylinder held extended during dwell"
+    ],
+    "21": [
+     "fault lamp off when curtain clear",
+     "fault lamp on when obstructed",
+     "stop button stops conveyor"
+    ],
+    "22": [
+     "alarm after 8 s blocked",
+     "jam stops conveyor",
+     "alarm stays latched",
+     "no alarm when exit also blocked"
+    ],
+    "23": [
+     "valve A open while running",
+     "valve B opens once per 4 flow pulses"
+    ],
+    "24": [
+     "exactly one lamp lit at a time",
+     "lamps light in order 1-2-3-4, repeating",
+     "each lamp lit for ~500 ms",
+     "all lamps off when stopped",
+     "sequence restarts at Lamp1"
+    ],
+    "25": [
+     "no dosing at pH 7.00",
+     "base below 6.80",
+     "dosing stops back in range"
+    ],
+    "26": [
+     "start latches conveyor"
+    ],
+    "27": [
+     "speed output = RPM_Set while running"
+    ],
+    "28": [
+     "no speed output when stopped",
+     "speed output = RPM_Set while running",
+     "display shows RPM",
+     "speed output zero after stop"
+    ],
+    "29": [
+     "speed output = RPM_Set while running",
+     "display shows RPM"
+    ],
+    "30": [
+     "no speed output when stopped",
+     "speed output = RPM_Set while running",
+     "display shows RPM",
+     "speed output zero after stop"
+    ]
+   },
+   "probe_errors": {
+    "4": "assignment to undeclared Bottle_Count",
+    "7": "assignment to undeclared Conveyor_Speed",
+    "28": "assignment to undeclared RPM_RPM",
+    "30": "assignment to undeclared total_boxes"
+   },
+   "clean": [
+    2,
+    5,
+    7,
+    11,
+    12,
+    15,
+    16,
+    17,
+    19,
+    24,
+    25,
+    26
+   ],
+   "clean_and_probe_all": [],
+   "probe_all_not_clean": [],
+   "probe_rate_clean": 0.397,
+   "probe_rate_not_clean": 0.396,
+   "interface_parsed_programs": {
+    "required": 151,
+    "declared": 140,
+    "direction_ok": 137,
+    "type_ok": 133,
+    "used": 129,
+    "exact_case": 119,
+    "real_on_word": 0,
+    "extra_io": 4
+   },
+   "interface_complete_tasks": [
+    2,
+    5,
+    8,
+    10,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    19,
+    23,
+    24,
+    25,
+    26
+   ],
+   "interface_detail": {
+    "1": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 5,
+     "used": 4,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "3": {
+     "required": 6,
+     "declared": 6,
+     "direction_ok": 6,
+     "type_ok": 6,
+     "used": 5,
+     "exact_case": 6,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "4": {
+     "required": 6,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 5,
+     "used": 3,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "6": {
+     "required": 6,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 5,
+     "used": 3,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "7": {
+     "required": 7,
+     "declared": 4,
+     "direction_ok": 4,
+     "type_ok": 4,
+     "used": 4,
+     "exact_case": 4,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "9": {
+     "required": 7,
+     "declared": 7,
+     "direction_ok": 7,
+     "type_ok": 7,
+     "used": 6,
+     "exact_case": 7,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "11": {
+     "required": 3,
+     "declared": 3,
+     "direction_ok": 3,
+     "type_ok": 2,
+     "used": 3,
+     "exact_case": 3,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "18": {
+     "required": 3,
+     "declared": 3,
+     "direction_ok": 3,
+     "type_ok": 3,
+     "used": 2,
+     "exact_case": 3,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "20": {
+     "required": 6,
+     "declared": 5,
+     "direction_ok": 4,
+     "type_ok": 5,
+     "used": 5,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "21": {
+     "required": 5,
+     "declared": 3,
+     "direction_ok": 3,
+     "type_ok": 3,
+     "used": 3,
+     "exact_case": 3,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "22": {
+     "required": 6,
+     "declared": 6,
+     "direction_ok": 6,
+     "type_ok": 6,
+     "used": 5,
+     "exact_case": 6,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "27": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 4,
+     "type_ok": 4,
+     "used": 5,
+     "exact_case": 4,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "28": {
+     "required": 5,
+     "declared": 5,
+     "direction_ok": 5,
+     "type_ok": 4,
+     "used": 4,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 0
+    },
+    "29": {
+     "required": 8,
+     "declared": 7,
+     "direction_ok": 6,
+     "type_ok": 5,
+     "used": 6,
+     "exact_case": 2,
+     "real_on_word": 0,
+     "extra_io": 1
+    },
+    "30": {
+     "required": 11,
+     "declared": 9,
+     "direction_ok": 9,
+     "type_ok": 7,
+     "used": 9,
+     "exact_case": 5,
+     "real_on_word": 0,
+     "extra_io": 3
+    }
+   },
+   "durations_matched": 12,
+   "durations_required": 14,
+   "duration_detail": {
+    "2": {
+     "want": [
+      2000,
+      5000
+     ],
+     "have": [
+      2000,
+      5000
+     ]
+    },
+    "5": {
+     "want": [
+      10000
+     ],
+     "have": [
+      10000
+     ]
+    },
+    "8": {
+     "want": [
+      30000
+     ],
+     "have": [
+      30000
+     ]
+    },
+    "10": {
+     "want": [
+      10000,
+      15000,
+      20000
+     ],
+     "have": [
+      10000,
+      15000,
+      20000
+     ]
+    },
+    "11": {
+     "want": [
+      1000
+     ],
+     "have": [
+      1000
+     ]
+    },
+    "12": {
+     "want": [
+      500
+     ],
+     "have": [
+      500
+     ]
+    },
+    "17": {
+     "want": [
+      600000
+     ],
+     "have": [
+      10000
+     ]
+    },
+    "18": {
+     "want": [
+      500
+     ],
+     "have": [
+      2000
+     ]
+    },
+    "20": {
+     "want": [
+      500
+     ],
+     "have": [
+      500
+     ]
+    },
+    "22": {
+     "want": [
+      8000
+     ],
+     "have": [
+      8000
+     ]
+    },
+    "24": {
+     "want": [
+      500
+     ],
+     "have": [
+      500
+     ]
+    }
+   }
+  }
+ },
+ "repair7_changed_files": [
+  10,
+  14,
+  18,
+  20,
+  21,
+  22,
+  23,
+  25
+ ],
+ "repair7_probe_delta": {
+  "10": [
+   1,
+   1
+  ],
+  "14": [
+   2,
+   5
+  ],
+  "18": [
+   2,
+   1
+  ],
+  "20": [
+   4,
+   4
+  ],
+  "21": [
+   5,
+   0
+  ],
+  "22": [
+   5,
+   6
+  ],
+  "23": [
+   0,
+   2
+  ],
+  "25": [
+   0,
+   1
+  ]
+ },
+ "same_program_7b_15b": [
+  26
+ ],
+ "probe_all_union": [
+  5,
+  9
+ ],
+ "rust": {
+  "oneshot7": {
+   "addr_matched": 113,
+   "addr_checked": 116,
+   "addr_wrong": {
+    "26": [
+     "Start_Button",
+     "Stop_Button",
+     "Conveyor_Run"
+    ]
+   },
+   "tasks_in_out_share_address": [
+    1,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    12,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    26,
+    27,
+    29
+   ]
+  },
+  "repair7": {
+   "addr_matched": 118,
+   "addr_checked": 121,
+   "addr_wrong": {
+    "26": [
+     "Start_Button",
+     "Stop_Button",
+     "Conveyor_Run"
+    ]
+   },
+   "tasks_in_out_share_address": [
+    1,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    12,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    26,
+    27,
+    29
+   ]
+  },
+  "repair15": {
+   "addr_matched": 137,
+   "addr_checked": 146,
+   "addr_wrong": {
+    "6": [
+     "EStop_Lamp"
+    ],
+    "20": [
+     "Gripper_Extended",
+     "Gripper_Retracted"
+    ],
+    "21": [
+     "Start_Button",
+     "Safety_Fault_Lamp"
+    ],
+    "27": [
+     "RPM_Set"
+    ],
+    "29": [
+     "RPM_Set",
+     "display_box_counter"
+    ],
+    "30": [
+     "Vision_Sensor"
+    ]
+   },
+   "tasks_in_out_share_address": [
+    1,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    26,
+    27,
+    28,
+    29,
+    30
+   ]
+  },
+  "spec_tasks_with_shared_numbers": [
+   1,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   26,
+   27,
+   29,
+   30
+  ]
+ }
+}

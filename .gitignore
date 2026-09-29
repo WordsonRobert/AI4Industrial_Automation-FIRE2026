@@ -4,12 +4,13 @@ __pycache__/
 .venv/
 venv/
 
-# Model weights, data and generated output folders (not tracked)
+# Weights, data, generated output
 lora_*adapter*/
 *.safetensors
 *.bin
 *.xlsx
 submission_output_*/
+qwen_tokenizer.json
 
 # LaTeX build files
 paper/*.aux
@@ -17,11 +18,13 @@ paper/*.bbl
 paper/*.blg
 paper/*.log
 paper/*.out
+paper/*.abs
 paper/*.xmpdata
 paper/*.xmpi
-paper/*.pdf
-!paper/cc-by.pdf
-!paper/ceur-ws-logo.pdf
+paper/*.synctex.gz
+paper/*.fdb_latexmk
+paper/*.fls
+paper/main.pdf
 
 # OS / editor
 .DS_Store

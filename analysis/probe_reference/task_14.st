@@ -1,0 +1,11 @@
+PROGRAM T14
+VAR_INPUT
+    Temp_Sensor : INT;
+END_VAR
+VAR_OUTPUT
+    Fan1 : BOOL;
+    Fan2 : BOOL;
+END_VAR
+IF Temp_Sensor > 300 THEN Fan1 := TRUE; ELSIF Temp_Sensor < 280 THEN Fan1 := FALSE; END_IF;
+IF Temp_Sensor > 350 THEN Fan2 := TRUE; ELSIF Temp_Sensor < 330 THEN Fan2 := FALSE; END_IF;
+END_PROGRAM

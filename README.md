@@ -1,127 +1,164 @@
-# NL2PLC: Natural Language to IEC 61131-3 Structured Text and Rust
+# NL2PLC: natural language to Structured Text and Rust
 
-This is team **fih**'s submission to the FIRE 2026 shared task *AI4Industrial Automation: NL2PLC Code Generation and Understanding*:
+Team **fih** at the FIRE 2026 shared task *AI4Industrial Automation: NL2PLC Code Generation and Understanding*.
 
-- **Task A:** natural language → IEC 61131-3 Structured Text (ST)
-- **Task B:** natural language → Rust
+- Task A: natural language → IEC 61131-3 Structured Text (ST)
+- Task B: natural language → Rust (Modbus scan loop)
 
-The repository holds three things:
+The model never writes ST or Rust. It writes a compact JSON syntax tree, which deterministic code checks and then prints in either language. This repository holds the code and outputs of the three submitted runs, the post-hoc analysis, and the LaTeX source of the working note ([PDF](paper/fih_nl2plc_working_note.pdf)).
 
-- the code and outputs of all three submitted runs
-- detailed notes on the method and results
-- the LaTeX source of our working note
+![Pipeline](paper/figures/arch.png)
 
-## How it works
+## Pipeline
 
-The language model never writes ST or Rust directly:
+The stages below follow the order of the paper. [docs/PIPELINE.md](docs/PIPELINE.md) gives the details of each stage and the file that implements it.
 
-1. A LoRA fine-tuned **Qwen2.5-Coder-Instruct** model turns the task description into a **compact JSON abstract syntax tree (AST)**.
-2. The AST is checked:
-   - a **static linter** looks for unused or missing I/O, writes to inputs, dead overrides, impossible conditions and undeclared variables;
-   - a **200-cycle scan simulation** flags outputs that never change.
-3. Any problems are sent back to the model, which gets **up to 3 attempts**.
-4. A **deterministic printer** turns the final AST into ST (Task A) or a Modbus polling-loop Rust program (Task B).
-5. For Task B only, a mechanical post-pass adds a self-contained Modbus stub and checks that the file compiles with `rustc`.
+### 1. Data
 
-```
-NL task ─► Qwen2.5-Coder + LoRA ─► JSON AST ─► lint + smoke test ─┬─► ST printer   ─► .st
-               ▲                                                    │
-               └──────────── feedback (≤ 3 attempts) ◄──────────────┴─► Rust printer ─► .rs ─► Modbus stub + rustc
-```
+The official FIRE training set (349 pairs) was combined with permissively licensed IEC 61131-3 programs from GitHub (MIT, Apache-2.0, BSD, ISC, Unlicense, CC0). Each program was split into units, converted to the tree format, described in natural language by DeepSeek-V3, and augmented by renaming I/O, tags and literals. This produced 744 NL–tree pairs. After quality filtering, 396 remained, split 356 / 40 (train / held-out, seed 42).
 
-## Official results
+The corpus builder and scraper are not part of this repository.
 
-The organizers announced these on 4 September 2026.
+### 2. Fine-tuning
 
-| Rank | Task A: NL → ST | Score | Task B: NL → Rust | Score |
-|---|---|---|---|---|
-| 1 | 8 Bit Thugs | 81.78 | Master Mind | 61.55 |
-| 2 | team meooo | 79.31 | CSNLP | 60.43 |
-| 3 | Treygram | 78.83 | AutoLogic AI | 59.29 |
-| 4 | Master Mind | 76.63 | Treygram | 59.22 |
-| 5 | CSNLP | 75.11 | TokenX | 56.67 |
-| 6 | AutoLogic AI | 73.62 | **fih (us)** | **53.20** |
-| 7 | TokenX | 73.50 | team meooo | 44.20 |
-| 8 | **fih (us)** | **63.21** | | |
+`Qwen2.5-Coder-7B-Instruct` and `Qwen2.5-Coder-1.5B-Instruct` were trained with LoRA on the attention and MLP projections. Settings:
 
-- **How the score is computed:** final score = 25% Cosine Similarity + 25% Structural Match Score + 50% Program Dependence Graph similarity. All three compare our output with the organizers' reference programs.
-- **Per-team scores:** there is one score per team per task. The leaderboard does not say which of our runs was scored.
+- rank 16, α 32, dropout 0.05
+- 3 epochs, effective batch 16, learning rate 2e-4
+- bf16, maximum length 1536
 
-## Our internal verification (30 test tasks)
+The training script and adapters are not included; the adapters are available on request.
 
-These numbers come from our own checks, not the official metric.
+### 3. Generation
 
-| Run | Model | Repair loop | Parsed AST | Fully clean (parse + lint + smoke) | Rust compiles (`rustc`) |
-|---|---|---|---|---|---|
-| RUN-fih-01 (primary) | Qwen2.5-Coder-7B + LoRA | yes | 27/30 | **18/30** | 18/30 |
-| RUN-fih-02 | Qwen2.5-Coder-1.5B + LoRA | yes | **30/30** | 12/30 | 18/30 |
-| RUN-fih-03 (baseline) | Qwen2.5-Coder-7B + LoRA | no | 26/30 | 15/30 | 0/30 |
+The model receives the task text, including its I/O address list, and a prompt that describes the tree schema. It returns only the compact JSON tree, for example `{"t":"Asn","tg":"Pump","v":{"t":"Id","n":"Start"}}`. Decoding is greedy, with at most 2,560 new tokens.
 
-## Repository layout
+Code: `code/run_real_test_set_*.py`
+
+### 4. Parsing
+
+Markdown fences are stripped. The JSON is parsed, and repaired with `json_repair` if needed, then converted into typed tree nodes. If this fails, the task is logged as a generation failure.
+
+Code: `code/ast_compact.py`, `code/ast_nodes.py`
+
+### 5. Verification and repair
+
+- **Static linter:** 8 rules, including missing or unused I/O, writes to inputs, dead overrides, impossible conditions, undeclared variables and misused function blocks.
+- **Scan-cycle simulator:** runs the tree for 200 scans and flags outputs that never change.
+
+Findings are returned to the model as text, with up to three attempts in total. If no attempt is clean, the last parseable tree is kept.
+
+Code: `code/lint_program.py`, `code/smoke_test.py`, `code/ast_interpreter.py`
+
+### 6. Structured Text (Task A)
+
+A deterministic printer writes the `PROGRAM` header, the variable blocks and the statements.
+
+Known gap: `AT %IX…` address bindings are not printed.
+
+Code: `code/st_printer.py`
+
+### 7. Rust (Task B)
+
+The same tree is printed as a Modbus client with a read–compute–write loop and a 20 ms sleep. Bit addresses map to coils and word addresses to holding registers. TON, CTU and R_TRIG are translated; other function blocks are not.
+
+A post-pass then prepends a self-contained 48-line `modbus` stub, so each file compiles with plain `rustc --edition 2021`.
+
+Code: `code/rust_printer.py`, `code/fix_rust_outputs.py`
+
+### 8. Post-hoc analysis
+
+`analysis/` evaluates the submitted files themselves, beyond the pipeline's own checks:
+
+- an independent ST parser and interpreter
+- interface and timing fidelity against each task's I/O list
+- behavioural probes written from the task texts (169 checks)
+- Modbus address checks on the Rust files
+
+`analysis/check_paper_claims.py` asserts every number quoted in the paper. See [analysis/README.md](analysis/README.md).
+
+## Runs
+
+| Run | Model | Checks and repair | Rust post-pass |
+|---|---|---|---|
+| [RUN-fih-01](RUN-fih-01/) (primary) | 7B | yes, ≤ 3 attempts | yes |
+| [RUN-fih-02](RUN-fih-02/) | 1.5B | yes, ≤ 3 attempts | yes |
+| [RUN-fih-03](RUN-fih-03/) | 7B | no, 1 attempt | no |
+
+Decoding is greedy, so RUN-fih-03 matches the first attempt of RUN-fih-01.
+
+## Results
+
+Official evaluation (similarity to the organisers' reference programs; one score per team):
+
+| | Score | Rank |
+|---|---|---|
+| Task A (ST) | 63.21 | 8 / 8 |
+| Task B (Rust) | 53.20 | 6 / 7 |
+
+Our own measurements on the 30 test tasks (details in Section 4 of the paper):
+
+| | 7B single pass | 7B + repair | 1.5B + repair |
+|---|---|---|---|
+| Parseable tree | 26 | 27 | 30 |
+| Clean (lint and simulation) | 15 | 18 | 12 |
+| ST passes front-end check | 24 | 25 | 26 |
+| Behavioural checks earned (of 91) | 18 | 20 | 4 |
+| Rust compiles (with stub) | 18 | 18 | 18 |
+
+## Layout
 
 ```
 .
-├── README.md                 this file
-├── RUN-fih-01/               primary run: 7B, repair loop, Rust post-pass
-│   ├── README.md             run description, pipeline, reproduction steps
-│   ├── code/                 all source code used for this run
-│   ├── taskA-outputs/        task_01..30.st + all_results.jsonl (per-attempt logs)
-│   └── taskB-outputs/        fixed_task_NN.rs, all_results.jsonl, rust_check_report.{jsonl,txt}
-├── RUN-fih-02/               1.5B, repair loop, Rust post-pass (same layout)
-├── RUN-fih-03/               7B baseline, one attempt, no checks (same layout)
-├── docs/
-│   └── PAPER_NOTES.md        detailed notes: method, design choices, per-task results, error analysis
-└── paper/                    CEUR-format LaTeX source of the working note
+├── RUN-fih-0{1,2,3}/
+│   ├── code/             source used for the run
+│   ├── taskA-outputs/    task_NN.st, all_results.jsonl (per-attempt logs)
+│   └── taskB-outputs/    Rust files, logs, rust_check_report.{jsonl,txt}
+├── analysis/             post-hoc evaluation scripts and their outputs
+├── docs/PIPELINE.md      stage-by-stage notes with file references
+└── paper/                CEUR LaTeX source, figures and PDF of the working note
 ```
-
-## Code overview
-
-Each run's `code/` folder holds the following. The shared files are identical across runs.
-
-| File | Purpose |
-|---|---|
-| `ast_nodes.py` | AST node definitions (the intermediate representation) |
-| `ast_compact.py` | compact JSON ⇄ AST, using short type codes and field aliases |
-| `st_printer.py` | AST → Structured Text |
-| `rust_printer.py` | AST → Rust (Modbus polling loop, 20 ms scan) |
-| `lint_program.py` | static linter; some rules read the I/O list from the task text |
-| `ast_interpreter.py` | scan-cycle interpreter (TON, TP, CTU, R_TRIG) |
-| `smoke_test.py` | 200-cycle simulation that flags outputs which never change |
-| `run_real_test_set_with_repair_7b.py` | Task A driver with the repair loop (RUN-01, RUN-02) |
-| `run_task_b_rust_repaired.py` | Task B driver with the repair loop (RUN-01, RUN-02) |
-| `fix_rust_outputs.py` | Rust post-pass: Modbus stub, helpers, `rustc` compile check |
-| `run_real_test_set_7b.py`, `run_task_b_rust.py` | single-attempt drivers (RUN-03) |
 
 ## Reproducing
 
+Generation (needs a GPU, the LoRA adapter and the organisers' test spreadsheet):
+
 ```bash
 pip install transformers peft torch json_repair openpyxl
-# put Test-Dataset-AI4Industrial-Automation.xlsx and the LoRA adapter next to the scripts
 cd RUN-fih-01/code
-python3 run_real_test_set_with_repair_7b.py      # Task A
-python3 run_task_b_rust_repaired.py              # Task B, step 1
-cd submission_output_7b_rust_repaired && python3 ../fix_rust_outputs.py   # Task B, step 2 (needs rustc)
+python3 run_real_test_set_with_repair_7b.py                 # Task A
+python3 run_task_b_rust_repaired.py                         # Task B
+cd submission_output_7b_rust_repaired && python3 ../fix_rust_outputs.py   # stub + rustc
 ```
 
-Not included here:
-
-- the **LoRA adapter weights**
-- the **training script**
-- the **test spreadsheet**, which the task organizers distribute
-
-Training used LoRA with rank 16, alpha 32, on q/k/v/o/gate/up/down projections. The data was 744 NL→AST pairs: 349 from the official FIRE training set and 395 from permissively licensed open-source PLC code. Decoding is greedy, with at most 2,560 new tokens.
-
-## Building the paper
+Analysis (CPU only; `rustc` is needed for the stub ablation):
 
 ```bash
-cd paper
-pdflatex main && bibtex main && pdflatex main && pdflatex main
+pip install json_repair tokenizers
+python3 analysis/compute_paper_numbers.py --tokenizer qwen_tokenizer.json
+python3 analysis/analyze_outputs.py
+python3 analysis/check_paper_claims.py
 ```
 
-`ceurart.cls` is the official CEUR-WS template, distributed under the LaTeX Project Public License. See `paper/Copyright*.txt`.
+Paper:
+
+```bash
+cd paper && pdflatex main && bibtex main && pdflatex main && pdflatex main
+```
 
 ## Notes
 
-- The submitted zips named the code folders `code_files/` (RUN-01) and `code-files/` (RUN-03). They are renamed to `code/` here, to match the run READMEs. The code files themselves are unchanged from the submission.
-- The run READMEs gained the official results and our internal verification numbers. The RUN-fih-02 README was also corrected: it previously stated a 7B parameter count and parse failures that belong to the 7B runs.
-- `docs/PAPER_NOTES.md` §8–§9 lists known limitations of the code.
+- The submitted archives named the code folders `code_files/` and `code-files/`. They are renamed to `code/` here; the code itself is unchanged.
+- `ceurart.cls` is the CEUR-WS template, distributed under the LaTeX Project Public License (see `paper/Copyright*.txt`).
+
+## Citation
+
+```bibtex
+@inproceedings{robert2026fih,
+  author    = {Wordson Robert and C. Jerin Mahibha},
+  title     = {Generating Structured Text and Rust from Natural Language via a Compact
+               Abstract Syntax Tree and Lint-Guided Self-Repair},
+  booktitle = {Working Notes of FIRE 2026 -- Forum for Information Retrieval Evaluation},
+  year      = {2026}
+}
+```
